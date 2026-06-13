@@ -49,6 +49,8 @@ apis:
         url: https://www.zoho.com/mail/help/api/using-oauth-2.html
       - type: OpenAPISpec
         url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
+      - type: OpenAPI
+        url: openapi/openapi.json
     contact:
       - FN: Zoho Mail Support
         url: https://www.zoho.com/mail/help/
@@ -76,6 +78,10 @@ common:
     url: rate-limits/zoho-mail-rate-limits.yml
   - type: FinOps
     url: finops/zoho-mail-finops.yml
+  - type: BlogPosts
+    url: blogs/blogs.json
+  - type: JSONLd
+    url: json-ld/zoho-mail.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

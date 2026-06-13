@@ -1,0 +1,147 @@
+{
+  "provider": "zoho-mail",
+  "url": "https://blog.zoho.com/mail",
+  "fetched": "2026-06-13",
+  "posts": [
+    {
+      "title": "Business email deliverability in 2026: Why enterprises must take this seriously",
+      "date": "2026-05-20",
+      "author": "Rohan Samuel",
+      "url": "https://blog.zoho.com/mail/business-email-deliverability.html",
+      "readingTime": "12 minutes"
+    },
+    {
+      "title": "Admin reports in Zoho Mail: Ensuring security, authentication, and administrative visibility",
+      "date": "2026-05-20",
+      "author": "Anjana Balaji",
+      "url": "https://blog.zoho.com/mail/zoho-mail-reports-for-security.html",
+      "readingTime": "11 minutes"
+    },
+    {
+      "title": "Build smarter email workflows with Client Scripting in Zoho Mail",
+      "date": "2026-05-14",
+      "author": "Revathi S",
+      "url": "https://blog.zoho.com/mail/client-scripting.html",
+      "readingTime": "5 minutes"
+    },
+    {
+      "title": "Behind the inbox: Getting to know Zoho Mail's command line interface (CLI)",
+      "date": "2026-04-29",
+      "author": "Srinath Vijayakumar",
+      "url": "https://blog.zoho.com/mail/command-line-interface.html",
+      "readingTime": "9 minutes"
+    },
+    {
+      "title": "Admin reports in Zoho Mail: Analyzing email activity and usage trends",
+      "date": "2026-04-28",
+      "author": "Anjana Balaji",
+      "url": "https://blog.zoho.com/mail/email-activity-report.html",
+      "readingTime": "7 minutes"
+    },
+    {
+      "title": "AWS WorkMail is shutting down: Migrate to a secure alternative without downtime",
+      "date": "2026-04-08",
+      "author": "Revathi S",
+      "url": "https://blog.zoho.com/mail/migrate-from-aws-workmail.html",
+      "readingTime": "5 minutes"
+    },
+    {
+      "title": "Admin reports in Zoho Mail: From user accounts to team communication",
+      "date": "2026-03-27",
+      "author": "Anjana Balaji",
+      "url": "https://blog.zoho.com/mail/admin-reports-for-email-usage.html",
+      "readingTime": "12 minutes"
+    },
+    {
+      "title": "From conditions to context: Use Zoho MCP to manage your inbox with AI agents",
+      "date": "2026-03-25",
+      "author": "Ezhili RT",
+      "url": "https://blog.zoho.com/mail/email-mcp-server.html",
+      "readingTime": "6 minutes"
+    },
+    {
+      "title": "Regulatory compliance for enterprise email",
+      "date": "2026-03-19",
+      "author": "Ramya A Subramanian",
+      "url": "https://blog.zoho.com/mail/regulatory-compliance-for-enterprise-email.html",
+      "readingTime": "13 minutes"
+    },
+    {
+      "title": "Admin reports in Zoho Mail: A complete overview of dashboard and reporting features",
+      "date": "2026-02-27",
+      "author": "Anjana Balaji",
+      "url": "https://blog.zoho.com/mail/admin-reports-overview.html",
+      "readingTime": "12 minutes"
+    },
+    {
+      "title": "Connecting, collaborating, and growing: Zoho Mail 2025 wrap-up",
+      "date": "2025-12-22",
+      "author": "Revathi S",
+      "url": "https://blog.zoho.com/mail/zohomail-2025-wrap.html",
+      "readingTime": "6 minutes"
+    },
+    {
+      "title": "Email fatigue is real: Here's how smart email tools help you regain control",
+      "date": "2025-12-12",
+      "author": "Rohan Samuel",
+      "url": "https://blog.zoho.com/mail/email-fatigue.html",
+      "readingTime": "10 minutes"
+    },
+    {
+      "title": "The hidden cost of \"free\" email: What businesses need to know",
+      "date": "2025-11-28",
+      "author": "Srinath Vijayakumar",
+      "url": "https://blog.zoho.com/mail/hidden-cost-of-free-email.html",
+      "readingTime": "13 minutes"
+    },
+    {
+      "title": "How granular admin controls are transforming enterprise email security",
+      "date": "2025-11-03",
+      "author": "Revathi S",
+      "url": "https://blog.zoho.com/mail/granular-control.html",
+      "readingTime": "9 minutes"
+    },
+    {
+      "title": "The modern inbox: Why teams need shared mailboxes to streamline collaboration",
+      "date": "2025-10-30",
+      "author": "Prashanth",
+      "url": "https://blog.zoho.com/mail/shared-mailbox-collaboration.html",
+      "readingTime": "6 minutes"
+    },
+    {
+      "title": "Feature spotlight: Settings Customization in Zoho Mail",
+      "date": "2025-07-24",
+      "author": "Revathi S",
+      "url": "https://blog.zoho.com/mail/settings-customization.html",
+      "readingTime": "3 minutes"
+    },
+    {
+      "title": "Migrating from Exchange On-Premises to a Cloud-Based Email Solution",
+      "date": "2025-06-19",
+      "author": "Sriram Ganapathi",
+      "url": "https://blog.zoho.com/mail/exchange-on-premise-migration.html",
+      "readingTime": "7 minutes"
+    },
+    {
+      "title": "The importance of email header and its compliance to the RFC standards",
+      "date": "2025-05-15",
+      "author": "Ranadive",
+      "url": "https://blog.zoho.com/mail/rfc-5322-compliance.html",
+      "readingTime": "5 minutes"
+    },
+    {
+      "title": "Your inbox's new best friend: Introducing slash commands in Zoho Mail",
+      "date": "2025-03-24",
+      "author": "Prashanth",
+      "url": "https://blog.zoho.com/mail/slash-commands.html",
+      "readingTime": "4 minutes"
+    },
+    {
+      "title": "2024 Wrapped: Zoho Mail's year in review",
+      "date": "2025-01-13",
+      "author": "Srinath Vijayakumar",
+      "url": "https://blog.zoho.com/mail/wrapping-up-2024.html",
+      "readingTime": "6 minutes"
+    }
+  ]
+}

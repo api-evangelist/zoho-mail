@@ -1,0 +1,100 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://www.zoho.com/mail/",
+  "name": "Zoho Mail",
+  "description": "Zoho Mail is an ad-free, privacy-first email and collaboration platform offering a comprehensive REST API for managing email accounts, folders, messages, contacts, calendars, and organizational email administration.",
+  "url": "https://www.zoho.com/mail/",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Email",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.zoho.com/mail/zohomail-pricing.html"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Zoho Corporation",
+    "url": "https://www.zoho.com",
+    "sameAs": [
+      "https://in.linkedin.com/company/zoho-mail",
+      "https://x.com/zohomail",
+      "https://github.com/zoho"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "support@zohomail.com",
+      "contactType": "customer support",
+      "url": "https://www.zoho.com/mail/help/"
+    }
+  },
+  "softwareVersion": "v1",
+  "featureList": [
+    "Email sending and receiving via REST API",
+    "Folder management",
+    "Label and tag management",
+    "Email search",
+    "Attachment upload and retrieval",
+    "Thread management",
+    "Signature management",
+    "Task management",
+    "Bookmark management",
+    "Notes management",
+    "Organization administration",
+    "Domain management",
+    "Group management",
+    "User account management",
+    "Mail policy enforcement",
+    "Audit logs",
+    "Vacation auto-reply",
+    "Email forwarding",
+    "OAuth 2.0 authentication",
+    "Multi-region deployment (US, EU, IN, AU, JP, CA, AE, SA, CN)"
+  ],
+  "hasPart": [
+    {
+      "@type": "WebAPI",
+      "name": "Zoho Mail REST API",
+      "description": "REST API for programmatic access to Zoho Mail features including email, folders, accounts, organization management, and more.",
+      "documentation": "https://www.zoho.com/mail/help/api/overview.html",
+      "url": "https://mail.zoho.com/api",
+      "endpointUrl": "https://mail.zoho.com/api",
+      "termsOfService": "https://www.zoho.com/terms.html",
+      "potentialAction": [
+        {
+          "@type": "Action",
+          "name": "Send Email",
+          "target": "https://mail.zoho.com/api/accounts/{accountId}/messages"
+        },
+        {
+          "@type": "Action",
+          "name": "List Folders",
+          "target": "https://mail.zoho.com/api/accounts/{accountId}/folders"
+        },
+        {
+          "@type": "Action",
+          "name": "Search Email",
+          "target": "https://mail.zoho.com/api/accounts/{accountId}/messages/search"
+        }
+      ]
+    }
+  ],
+  "keywords": [
+    "email",
+    "mail",
+    "REST API",
+    "OAuth 2.0",
+    "collaboration",
+    "messaging",
+    "calendar",
+    "contacts",
+    "organization management",
+    "SaaS",
+    "enterprise email"
+  ],
+  "sameAs": [
+    "https://www.zoho.com/mail/",
+    "https://blog.zoho.com/mail",
+    "https://status.zoho.com"
+  ]
+}
