@@ -1,0 +1,120 @@
+name: Zoho Mail FinOps
+description: Financial operations guidance for managing Zoho Mail API and service costs
+url: https://www.zoho.com/mail/zohomail-pricing.html
+
+overview:
+  description: >
+    Zoho Mail uses a per-user subscription model with tiered plans. Costs scale
+    linearly with user count. API access is included in all paid plans without
+    additional per-call charges, making cost prediction straightforward.
+  billing_model: per user per month (billed annually or monthly)
+  free_tier: true
+  free_tier_details: Up to 5 users, 5 GB storage each, web-only access, forever free
+
+cost_drivers:
+  - name: User Count
+    description: Primary cost driver; each user adds to the monthly/annual bill
+    impact: high
+    notes: Scales linearly with plan rate per user
+  - name: Plan Tier
+    description: Selected plan determines features and per-user rate
+    impact: high
+    options:
+      - Mail Lite at ~$1/user/month
+      - Mail Premium at ~$4/user/month
+      - Workplace plans at higher rates
+  - name: Storage Add-ons
+    description: Additional storage purchased beyond plan allocation
+    impact: medium
+    rate: $10/year per 10 GB mail storage
+  - name: Billing Period
+    description: Annual vs monthly billing can affect availability of lower-tier plans
+    impact: low
+    notes: Mail Lite and Mail Premium require annual billing
+
+optimization_strategies:
+  - name: Right-size Plan Selection
+    description: Choose plan based on actual storage and protocol needs
+    recommendation: >
+      Use Mail Free for teams under 5 users needing only web access.
+      Upgrade to Mail Lite only when IMAP/POP/ActiveSync is needed.
+      Reserve Mail Premium for users requiring compliance and large storage.
+
+  - name: Annual Commitment
+    description: Commit annually for lower per-user rates where available
+    recommendation: >
+      Mail Lite and Mail Premium are only available with annual billing.
+      Evaluate user stability before committing to annual plans.
+
+  - name: Workplace Bundle Value
+    description: Evaluate Workplace plans for teams needing collaboration tools
+    recommendation: >
+      Workplace Standard and Professional include WorkDrive, Writer, Sheet,
+      Show, and Meeting — potentially more cost-effective than separate tools.
+
+  - name: Free Tier for Small Teams
+    description: Leverage the free tier for qualifying small organizations
+    recommendation: >
+      Organizations with 5 or fewer users can use Zoho Mail Free indefinitely
+      with 5 GB per user at no cost. Ideal for startups and small teams.
+
+  - name: API Rate Limit Monitoring
+    description: Monitor API usage to avoid hitting rate limits
+    recommendation: >
+      The API limit is 30 requests/minute. Implement request queuing and
+      exponential backoff to avoid throttling, which does not incur additional
+      costs but disrupts service.
+
+  - name: Storage Monitoring
+    description: Track per-user storage to avoid unnecessary add-on purchases
+    recommendation: >
+      Monitor mailbox storage usage via the admin console.
+      Archive or delete old emails before purchasing storage add-ons.
+      Consider email retention policies on Premium and Workplace plans.
+
+cost_estimation:
+  examples:
+    - scenario: Small team, web access only
+      users: 5
+      plan: Mail Free
+      monthly_cost_usd: 0.00
+      annual_cost_usd: 0.00
+
+    - scenario: Growing startup with IMAP needs
+      users: 20
+      plan: Mail Lite (5 GB)
+      estimated_monthly_rate_usd: 1.00
+      monthly_cost_usd: 20.00
+      annual_cost_usd: 240.00
+
+    - scenario: Mid-size business with compliance needs
+      users: 50
+      plan: Mail Premium
+      estimated_monthly_rate_usd: 4.00
+      monthly_cost_usd: 200.00
+      annual_cost_usd: 2400.00
+
+    - scenario: Collaboration-focused team
+      users: 25
+      plan: Workplace Standard
+      estimated_monthly_rate_usd: null
+      notes: See https://www.zoho.com/workplace/pricing.html for current rates
+
+api_cost_notes:
+  description: >
+    Zoho Mail REST API access does not carry separate per-call pricing.
+    API usage is included with any active Zoho Mail subscription or free account.
+    Costs are driven entirely by the subscription plan and user count.
+  throttling_cost: none
+  overage_cost: none
+  api_specific_plan: false
+
+resources:
+  - name: Zoho Mail Pricing Page
+    url: https://www.zoho.com/mail/zohomail-pricing.html
+  - name: Zoho Workplace Pricing
+    url: https://www.zoho.com/workplace/pricing.html
+  - name: Subscription Management
+    url: https://www.zoho.com/mail/help/adminconsole/subscription.html
+  - name: Rates and Limits Documentation
+    url: https://www.zoho.com/mail/help/adminconsole/rates-and-limits.html

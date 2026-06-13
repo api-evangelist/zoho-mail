@@ -1,0 +1,123 @@
+name: Zoho Mail Plans & Pricing
+description: Pricing plans for Zoho Mail email and collaboration platform
+url: https://www.zoho.com/mail/zohomail-pricing.html
+plans:
+
+  - name: Mail Free
+    description: Free plan for small teams with basic email hosting
+    url: https://www.zoho.com/mail/zohomail-pricing.html
+    price: 0.00
+    currency: USD
+    unit: per user/month
+    period: monthly
+    features:
+      - Up to 5 users
+      - 5 GB mail storage per user
+      - Custom email for one domain
+      - Calendar, ToDo, Cliq (free tier)
+      - Web access only
+    limitations:
+      - No IMAP/POP/ActiveSync access
+      - Maximum 5 users
+      - Single domain only
+
+  - name: Mail Lite
+    description: Entry-level paid plan for teams needing IMAP/POP and more storage
+    url: https://www.zoho.com/mail/zohomail-pricing.html
+    price: 1.00
+    currency: USD
+    unit: per user/month
+    period: annually
+    features:
+      - Any team size
+      - 5-10 GB mail storage per user
+      - IMAP/POP/ActiveSync access
+      - Enterprise custom email
+      - Calendar, ToDo, Directory
+      - Cliq (free tier)
+      - Zia AI assistant
+      - Trident Desktop app
+      - 250 MB attachment limit
+    limitations:
+      - No file storage included
+      - Annual billing only
+
+  - name: Mail Premium
+    description: Advanced plan with large storage and compliance features
+    url: https://www.zoho.com/mail/zohomail-pricing.html
+    price: 4.00
+    currency: USD
+    unit: per user/month
+    period: annually
+    features:
+      - Any team size
+      - 50 GB mail storage per user
+      - 50 GB retention storage per user
+      - Email retention and eDiscovery
+      - S-MIME encryption
+      - Mobile Access Management
+      - Data Loss Prevention (DLP)
+      - 1 GB attachment limit
+      - IMAP/POP/ActiveSync access
+    limitations:
+      - Annual billing only
+
+  - name: Workplace Standard
+    description: Best value bundle combining mail with collaboration tools
+    url: https://www.zoho.com/workplace/pricing.html
+    price: null
+    currency: USD
+    unit: per user/month
+    period: annually or monthly
+    features:
+      - 30 GB mail per user
+      - 100 GB team WorkDrive storage (first 10 users)
+      - WorkDrive file sync
+      - Writer, Sheet, Show apps
+      - Meeting (up to 100 participants)
+      - Vault password manager
+      - Connect intranet
+      - Full Cliq suite
+
+  - name: Workplace Professional
+    description: Advanced collaboration bundle with highest storage tiers
+    url: https://www.zoho.com/workplace/pricing.html
+    price: null
+    currency: USD
+    unit: per user/month
+    period: annually or monthly
+    features:
+      - 100 GB mail per user
+      - 100 GB retention storage per user
+      - 1 TB team WorkDrive storage (first 10 users)
+      - Advanced email compliance
+      - 1000-participant video meetings
+      - All Standard features
+
+  - name: Workplace Enterprise
+    description: Custom enterprise plan for large organizations
+    url: https://www.zoho.com/workplace/pricing.html
+    price: null
+    currency: USD
+    unit: custom
+    period: custom
+    contact: sales@zohocorp.com
+    features:
+      - Virtual Private Cloud (100,000+ users)
+      - Microsoft Active Directory sync
+      - Pooled storage (1,000+ users)
+      - Custom limits and SLAs
+      - All Professional features
+
+addons:
+  - name: Mail Storage Add-on
+    description: Additional mail storage beyond plan limits
+    price: 10.00
+    currency: USD
+    unit: per 10 GB/year
+  - name: WorkDrive Storage Add-on
+    description: Additional WorkDrive team storage
+    price: null
+    currency: USD
+    unit: tiered pricing
+    url: https://www.zoho.com/workplace/pricing.html

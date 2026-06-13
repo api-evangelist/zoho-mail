@@ -1,0 +1,97 @@
+name: Zoho Mail API Rate Limits
+description: Rate limits and sending restrictions for Zoho Mail REST API and email service
+url: https://www.zoho.com/mail/help/adminconsole/rates-and-limits.html
+
+api:
+  description: Limits applied to the Zoho Mail REST API
+  limits:
+    - name: API Request Rate
+      description: Maximum number of API requests per minute before blocking
+      limit: 30
+      unit: requests per minute
+      enforcement: blocking for an undisclosed locking period
+      notes: Subsequent requests blocked after exceeding; locking duration not publicly disclosed
+    - name: Reset Window
+      description: Timeframe for rate limit resets
+      daily_reset: 24 hours
+      rate_reset: 15 minutes
+
+email_sending:
+  description: Limits applied to outbound email sending
+  limits:
+    - name: External Email Sending Rate
+      description: Outbound emails to external recipients per hour
+      limit: 50-500
+      unit: emails per hour
+      notes: Dynamically adjusted based on sender reputation and recipient engagement
+    - name: Internal Email Sending Rate
+      description: Outbound emails to recipients within your organization
+      limit: 1000
+      unit: emails per hour
+    - name: Recipients Per Message (External - Paid)
+      description: Maximum number of external recipients per single email (paid plans)
+      limit: 150
+      unit: recipients
+    - name: Recipients Per Message (External - Free)
+      description: Maximum number of external recipients per single email (free plan)
+      limit: 100
+      unit: recipients
+    - name: Recipients Per Message (Internal)
+      description: Maximum number of internal recipients per single email
+      limit: 500
+      unit: recipients
+    - name: Bulk Sending
+      description: Bulk and burst email sending policy
+      allowed: false
+      notes: Not permitted under Zoho Mail business usage policy
+  consequences:
+    - trigger: Exceeding sending limits
+      result: Error message; cannot send new messages for up to 1 hour
+      notes: Receiving and account access remain functional during restriction
+
+email_receiving:
+  description: Limits applied to inbound email
+  limits:
+    - name: Incoming Processing Rate
+      description: Maximum rate of incoming email processing
+      limit: 100
+      unit: messages per minute
+    - name: Message Size
+      description: Maximum size for a single email message including attachments
+      limit: 40
+      unit: MB
+    - name: Attachments Per Email
+      description: Maximum number of attachments in a single email
+      limit: 500
+      unit: attachments
+  consequences:
+    - trigger: Exceeding incoming rate
+      result: Mail delivery suspended for approximately 24 hours; new messages rejected
+
+connections:
+  description: Connection limits for IMAP/POP protocols
+  limits:
+    - name: IMAP Connections
+      description: Concurrent IMAP connections per account
+      limit: 100
+      unit: connections per account
+    - name: POP Connections
+      description: Concurrent POP connections per account
+      limit: 5
+      unit: connections per account
+    - name: POP Daily Fetch Limit
+      description: Maximum data fetchable via POP per day
+      limit: 5
+      unit: GB per day
+
+forwarding:
+  description: Email forwarding configuration limits
+  limits:
+    - name: Manual Forwarding Rules
+      description: Number of manual forwarding configurations per account
+      limit: 1-3
+      notes: Varies by account type
+    - name: Filter-Based Forwarding
+      description: Number of filter-based forwarding configurations
+      limit: 30
+      unit: configurations

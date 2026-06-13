@@ -1,0 +1,81 @@
+aid: zoho-mail
+name: Zoho Mail
+description: >-
+  Zoho Mail is an ad-free, privacy-first email and collaboration platform offering
+  a comprehensive REST API for managing email accounts, folders, messages, contacts,
+  calendars, and organizational email administration. The API supports 15 modules
+  including Organization, Domains, Groups, Users, Mail Policy, Accounts, Folders,
+  Labels, Email Messages, Signatures, Threads, Tasks, Bookmarks, Notes, and Logs.
+  Authentication uses OAuth 2.0 and responses are returned in JSON format with
+  region-specific base URLs for US, Europe, India, Australia, Japan, Canada, UAE,
+  Saudi Arabia, and China deployments.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/zoho-mail/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Email
+  - Mail
+  - Collaboration
+  - Messaging
+  - Calendar
+  - Contacts
+  - Organization Management
+  - SaaS
+apis:
+  - aid: zoho-mail:zoho-mail-api
+    name: Zoho Mail API
+    description: >-
+      REST API for Zoho Mail providing programmatic access to email accounts,
+      folders, messages, threads, labels, signatures, tasks, bookmarks, notes,
+      organization settings, domains, groups, users, mail policies, and audit logs.
+      Supports full CRUD operations across all modules with OAuth 2.0 authentication.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.zoho.com/mail/help/api/overview.html
+    baseURL: https://mail.zoho.com/api
+    tags:
+      - Email
+      - Mail
+      - REST API
+      - Organization
+      - Messaging
+    properties:
+      - type: Documentation
+        url: https://www.zoho.com/mail/help/api/overview.html
+      - type: GettingStarted
+        url: https://www.zoho.com/mail/help/api/getting-started-with-api.html
+      - type: Authentication
+        url: https://www.zoho.com/mail/help/api/using-oauth-2.html
+      - type: OpenAPISpec
+        url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
+    contact:
+      - FN: Zoho Mail Support
+        url: https://www.zoho.com/mail/help/
+        email: support@zohomail.com
+common:
+  - type: Website
+    url: https://www.zoho.com/mail/
+  - type: Documentation
+    url: https://www.zoho.com/mail/help/api/overview.html
+  - type: GitHubOrg
+    url: https://github.com/zoho
+  - type: LinkedIn
+    url: https://in.linkedin.com/company/zoho-mail
+  - type: Blog
+    url: https://blog.zoho.com/mail
+  - type: Pricing
+    url: https://www.zoho.com/mail/zohomail-pricing.html
+  - type: StatusPage
+    url: https://status.zoho.com
+  - type: X
+    url: https://x.com/zohomail
+  - type: Plans
+    url: plans/zoho-mail-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/zoho-mail-rate-limits.yml
+  - type: FinOps
+    url: finops/zoho-mail-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
