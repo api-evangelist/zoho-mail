@@ -1,0 +1,1214 @@
+"""
+Zoho Mail GraphQL Schema
+Conceptual GraphQL schema derived from the Zoho Mail REST API.
+Source: https://www.zoho.com/mail/help/api/
+"""
+
+# ─── Scalars ───────────────────────────────────────────────────────────────────
+
+scalar DateTime
+scalar JSON
+scalar Upload
+
+# ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum FolderType {
+  INBOX
+  SENT
+  DRAFTS
+  TRASH
+  SPAM
+  CUSTOM
+  STARRED
+  ARCHIVE
+}
+
+enum EmailStatus {
+  READ
+  UNREAD
+  FLAGGED
+  DELETED
+  DRAFT
+}
+
+enum TaskStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  DEFERRED
+  WAITING
+}
+
+enum TaskPriority {
+  LOW
+  NORMAL
+  HIGH
+}
+
+enum FilterActionType {
+  MOVE
+  LABEL
+  FORWARD
+  DELETE
+  MARK_READ
+  STAR
+  ARCHIVE
+}
+
+enum FilterConditionOperator {
+  AND
+  OR
+}
+
+enum WebhookEvent {
+  EMAIL_RECEIVED
+  EMAIL_SENT
+  EMAIL_DELETED
+  FOLDER_CREATED
+  CONTACT_CREATED
+  CALENDAR_EVENT_CREATED
+}
+
+enum CalendarEventStatus {
+  CONFIRMED
+  TENTATIVE
+  CANCELLED
+}
+
+enum ContactType {
+  PERSONAL
+  PROFESSIONAL
+  OTHER
+}
+
+# ─── Account and Identity ─────────────────────────────────────────────────────
+
+"""Top-level Zoho Mail account container."""
+type Account {
+  accountId: ID!
+  emailAccounts: [EmailAccount!]
+  organization: Organization
+  storageInfo: StorageInfo
+  oauthToken: OAuthToken
+  apiKeys: [APIKey!]
+  webhooks: [Webhook!]
+}
+
+"""Individual email account within an organization or personal Zoho account."""
+type EmailAccount {
+  accountId: ID!
+  emailAddress: String!
+  displayName: String
+  firstName: String
+  lastName: String
+  accountDetails: AccountDetails
+  aliases: [Alias!]
+  signature: SignatureInfo
+  folders: [Folder!]
+  labels: [Label!]
+  filters: [Filter!]
+  autoResponder: AutoResponder
+  storageInfo: StorageInfo
+  isDefault: Boolean
+  isEnabled: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Extended metadata for an email account."""
+type AccountDetails {
+  accountId: ID!
+  incomingServer: String
+  outgoingServer: String
+  imapEnabled: Boolean
+  popEnabled: Boolean
+  smtpEnabled: Boolean
+  maxAliases: Int
+  usedAliases: Int
+  plan: String
+  region: String
+  timezone: String
+  language: String
+}
+
+"""Email address alias for an account."""
+type Alias {
+  aliasId: ID!
+  accountId: ID!
+  aliasEmail: String!
+  displayName: String
+  isDefault: Boolean
+  isVerified: Boolean
+  createdAt: DateTime
+}
+
+"""Email signature configuration for an account."""
+type SignatureInfo {
+  signatureId: ID!
+  accountId: ID!
+  signatureName: String
+  signatureContent: String
+  isHtml: Boolean
+  isDefault: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""API key credential for programmatic access."""
+type APIKey {
+  keyId: ID!
+  keyName: String
+  keyPrefix: String
+  scopes: [String!]
+  createdAt: DateTime
+  expiresAt: DateTime
+  isActive: Boolean
+}
+
+"""OAuth 2.0 token representation."""
+type OAuthToken {
+  tokenId: ID!
+  accessToken: String
+  refreshToken: String
+  tokenType: String
+  expiresIn: Int
+  scope: String
+  issuedAt: DateTime
+}
+
+# ─── Folder Management ────────────────────────────────────────────────────────
+
+"""Generic mail folder."""
+type Folder {
+  folderId: ID!
+  accountId: ID!
+  folderName: String!
+  folderType: FolderType!
+  parentFolderId: ID
+  path: String
+  unreadCount: Int
+  totalCount: Int
+  subFolders: [Folder!]
+  emails: [Email!]
+  isSystem: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Inbox system folder."""
+type InboxFolder {
+  folderId: ID!
+  accountId: ID!
+  unreadCount: Int!
+  totalCount: Int!
+  emails: [Email!]
+}
+
+"""Sent items system folder."""
+type SentFolder {
+  folderId: ID!
+  accountId: ID!
+  totalCount: Int!
+  emails: [Email!]
+}
+
+"""Trash/deleted items system folder."""
+type TrashFolder {
+  folderId: ID!
+  accountId: ID!
+  totalCount: Int!
+  emails: [Email!]
+  autoDeleteAfterDays: Int
+}
+
+"""Spam/junk mail system folder."""
+type SpamFolder {
+  folderId: ID!
+  accountId: ID!
+  unreadCount: Int!
+  totalCount: Int!
+  emails: [Email!]
+}
+
+"""User-created custom folder."""
+type CustomFolder {
+  folderId: ID!
+  accountId: ID!
+  folderName: String!
+  parentFolderId: ID
+  path: String
+  unreadCount: Int
+  totalCount: Int
+  color: String
+  emails: [Email!]
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+# ─── Email and Messaging ──────────────────────────────────────────────────────
+
+"""Core email message."""
+type Email {
+  messageId: ID!
+  accountId: ID!
+  folderId: ID!
+  subject: String
+  sender: Sender!
+  recipients: [Recipient!]!
+  ccFields: [CCField!]
+  bccFields: [BCCField!]
+  replyTo: [ReplyTo!]
+  status: EmailStatus!
+  hasAttachments: Boolean!
+  attachments: [Attachment!]
+  labels: [Label!]
+  threadId: ID
+  receivedAt: DateTime
+  sentAt: DateTime
+  size: Int
+  isStarred: Boolean
+  isRead: Boolean
+  priority: String
+  emailDetails: EmailDetails
+}
+
+"""Full email metadata and content."""
+type EmailDetails {
+  messageId: ID!
+  emailBody: EmailBody
+  headers: [EmailHeader!]
+  mimeType: String
+  charset: String
+  spamScore: Float
+  spfResult: String
+  dkimResult: String
+  dmarcResult: String
+  receivedFrom: String
+  xMailer: String
+  calendarInvite: CalendarEvent
+}
+
+"""Email body content in plain text and HTML."""
+type EmailBody {
+  textContent: String
+  htmlContent: String
+  snippet: String
+}
+
+"""Raw and parsed email header."""
+type EmailHeader {
+  name: String!
+  value: String!
+}
+
+"""Message sender."""
+type Sender {
+  emailAddress: String!
+  displayName: String
+  isKnownContact: Boolean
+}
+
+"""Message recipient in the To field."""
+type Recipient {
+  emailAddress: String!
+  displayName: String
+}
+
+"""CC (carbon copy) recipient."""
+type CCField {
+  emailAddress: String!
+  displayName: String
+}
+
+"""BCC (blind carbon copy) recipient."""
+type BCCField {
+  emailAddress: String!
+  displayName: String
+}
+
+"""Reply-to address."""
+type ReplyTo {
+  emailAddress: String!
+  displayName: String
+}
+
+"""Email attachment metadata."""
+type Attachment {
+  attachmentId: ID!
+  messageId: ID!
+  fileName: String!
+  mimeType: String
+  size: Int
+  isInline: Boolean
+  contentId: String
+}
+
+"""Binary attachment file data."""
+type AttachmentFile {
+  attachmentId: ID!
+  fileName: String!
+  mimeType: String
+  size: Int
+  downloadUrl: String
+  content: String
+}
+
+"""Unsent draft message."""
+type Draft {
+  draftId: ID!
+  accountId: ID!
+  subject: String
+  sender: Sender
+  recipients: [Recipient!]
+  ccFields: [CCField!]
+  bccFields: [BCCField!]
+  replyTo: [ReplyTo!]
+  body: EmailBody
+  attachments: [Attachment!]
+  inReplyToMessageId: ID
+  templateId: ID
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Email conversation thread grouping related messages."""
+type Thread {
+  threadId: ID!
+  accountId: ID!
+  subject: String
+  snippet: String
+  messages: [ThreadMessage!]!
+  messageCount: Int!
+  unreadCount: Int
+  participants: [Sender!]
+  latestMessage: Email
+  labels: [Label!]
+  isStarred: Boolean
+  folderId: ID
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Individual message within a thread."""
+type ThreadMessage {
+  messageId: ID!
+  threadId: ID!
+  sender: Sender!
+  recipients: [Recipient!]!
+  subject: String
+  snippet: String
+  sentAt: DateTime
+  isRead: Boolean
+  hasAttachments: Boolean
+  attachments: [Attachment!]
+}
+
+# ─── Labels and Organization ──────────────────────────────────────────────────
+
+"""User-defined label for organizing emails."""
+type Label {
+  labelId: ID!
+  accountId: ID!
+  labelName: String!
+  color: String
+  emailCount: Int
+  unreadCount: Int
+  isSystem: Boolean
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Association between a label and a tagged item."""
+type LabelTag {
+  tagId: ID!
+  labelId: ID!
+  messageId: ID
+  threadId: ID
+  appliedAt: DateTime
+}
+
+# ─── Search and Filtering ─────────────────────────────────────────────────────
+
+"""Search result container for email search."""
+type SearchResult {
+  totalCount: Int!
+  emails: [Email!]!
+  threads: [Thread!]
+  criteria: SearchCriteria
+  executedAt: DateTime
+}
+
+"""Search query parameters for email search."""
+type SearchCriteria {
+  query: String
+  folderId: ID
+  labelId: ID
+  fromAddress: String
+  toAddress: String
+  subject: String
+  hasAttachment: Boolean
+  isRead: Boolean
+  isStarred: Boolean
+  dateFrom: DateTime
+  dateTo: DateTime
+  sizeMin: Int
+  sizeMax: Int
+}
+
+"""Mail filter rule for automated email management."""
+type Filter {
+  filterId: ID!
+  accountId: ID!
+  filterName: String
+  isEnabled: Boolean!
+  conditionOperator: FilterConditionOperator
+  rules: [FilterRule!]!
+  actions: [FilterAction!]!
+  priority: Int
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Individual filter condition."""
+type FilterRule {
+  ruleId: ID!
+  filterId: ID!
+  field: String!
+  operator: String!
+  value: String!
+}
+
+"""Action to perform when a filter matches."""
+type FilterAction {
+  actionId: ID!
+  filterId: ID!
+  actionType: FilterActionType!
+  targetFolderId: ID
+  targetLabelId: ID
+  forwardToAddress: String
+}
+
+"""Email forwarding rule."""
+type ForwardRule {
+  ruleId: ID!
+  accountId: ID!
+  forwardToAddress: String!
+  keepCopy: Boolean!
+  isEnabled: Boolean!
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Automatic reply (out-of-office) configuration."""
+type AutoResponder {
+  responderId: ID!
+  accountId: ID!
+  isEnabled: Boolean!
+  autoReplySettings: AutoReplySettings
+  startDate: DateTime
+  endDate: DateTime
+  replyOnce: Boolean
+}
+
+"""Auto-reply schedule and content settings."""
+type AutoReplySettings {
+  subject: String!
+  bodyText: String
+  bodyHtml: String
+  replyToSender: Boolean!
+  replyToCc: Boolean
+  excludeExternalSenders: Boolean
+  timezone: String
+}
+
+# ─── Contacts ─────────────────────────────────────────────────────────────────
+
+"""Address book contact."""
+type Contact {
+  contactId: ID!
+  accountId: ID!
+  firstName: String
+  lastName: String
+  displayName: String
+  contactType: ContactType
+  emails: [ContactEmail!]
+  phones: [ContactPhone!]
+  details: ContactDetails
+  groups: [ContactGroup!]
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Extended contact information."""
+type ContactDetails {
+  contactId: ID!
+  company: String
+  jobTitle: String
+  department: String
+  website: String
+  birthday: String
+  notes: String
+  address: String
+  city: String
+  state: String
+  country: String
+  postalCode: String
+  customFields: JSON
+}
+
+"""Email address for a contact."""
+type ContactEmail {
+  emailId: ID!
+  contactId: ID!
+  emailAddress: String!
+  label: String
+  isPrimary: Boolean!
+}
+
+"""Phone number for a contact."""
+type ContactPhone {
+  phoneId: ID!
+  contactId: ID!
+  phoneNumber: String!
+  label: String
+  isPrimary: Boolean!
+}
+
+"""Contact group or distribution list."""
+type ContactGroup {
+  groupId: ID!
+  accountId: ID!
+  groupName: String!
+  description: String
+  members: [Contact!]
+  memberCount: Int
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+# ─── Calendar and Tasks ───────────────────────────────────────────────────────
+
+"""Calendar container."""
+type Calendar {
+  calendarId: ID!
+  accountId: ID!
+  calendarName: String!
+  description: String
+  color: String
+  timezone: String
+  isDefault: Boolean
+  isShared: Boolean
+  events: [CalendarEvent!]
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Individual calendar event."""
+type CalendarEvent {
+  eventId: ID!
+  calendarId: ID!
+  accountId: ID!
+  title: String!
+  description: String
+  location: String
+  startTime: DateTime!
+  endTime: DateTime!
+  isAllDay: Boolean
+  status: CalendarEventStatus
+  organizer: Sender
+  attendees: [Recipient!]
+  reminders: [CalendarReminder!]
+  recurrenceRule: String
+  isRecurring: Boolean
+  meetingUrl: String
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""Event reminder settings."""
+type CalendarReminder {
+  reminderId: ID!
+  eventId: ID!
+  method: String
+  minutesBefore: Int!
+}
+
+"""Task item."""
+type Task {
+  taskId: ID!
+  accountId: ID!
+  taskListId: ID
+  title: String!
+  description: String
+  status: TaskStatus!
+  priority: TaskPriority
+  dueDate: DateTime
+  completedAt: DateTime
+  assignees: [Recipient!]
+  tags: [String!]
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""List of tasks."""
+type TaskList {
+  taskListId: ID!
+  accountId: ID!
+  listName: String!
+  description: String
+  tasks: [Task!]
+  taskCount: Int
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+# ─── Notes and Files ──────────────────────────────────────────────────────────
+
+"""Note item."""
+type Note {
+  noteId: ID!
+  accountId: ID!
+  title: String
+  content: String
+  contentHtml: String
+  tags: [String!]
+  attachments: [FileAttachment!]
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""File attachment metadata."""
+type FileAttachment {
+  fileId: ID!
+  fileName: String!
+  mimeType: String
+  size: Int
+  downloadUrl: String
+  uploadedAt: DateTime
+}
+
+"""Storage quota and usage information."""
+type StorageInfo {
+  accountId: ID!
+  totalQuotaBytes: Int!
+  usedBytes: Int!
+  availableBytes: Int!
+  emailUsageBytes: Int
+  attachmentUsageBytes: Int
+  calendarUsageBytes: Int
+  contactUsageBytes: Int
+  usagePercentage: Float
+}
+
+# ─── Domain and Organization Administration ───────────────────────────────────
+
+"""Email domain configuration."""
+type DomainSettings {
+  domainId: ID!
+  organizationId: ID!
+  domainName: String!
+  isVerified: Boolean!
+  isPrimary: Boolean
+  mxRecords: [String!]
+  spfRecord: String
+  dkimPublicKey: String
+  dmarcRecord: String
+  catchAllEnabled: Boolean
+  catchAllEmail: String
+  createdAt: DateTime
+  verifiedAt: DateTime
+}
+
+"""Organization-level container for Zoho Mail administration."""
+type Organization {
+  organizationId: ID!
+  organizationName: String!
+  adminEmail: String
+  domains: [DomainSettings!]
+  users: [OrganizationUser!]
+  userCount: Int
+  maxUsers: Int
+  plan: String
+  createdAt: DateTime
+  modifiedAt: DateTime
+}
+
+"""User within an organization."""
+type OrganizationUser {
+  userId: ID!
+  organizationId: ID!
+  emailAddress: String!
+  displayName: String
+  firstName: String
+  lastName: String
+  role: String
+  isAdmin: Boolean
+  isEnabled: Boolean
+  department: String
+  jobTitle: String
+  emailAccount: EmailAccount
+  createdAt: DateTime
+  lastLoginAt: DateTime
+}
+
+# ─── Notifications ────────────────────────────────────────────────────────────
+
+"""Webhook subscription for event notifications."""
+type Webhook {
+  webhookId: ID!
+  targetUrl: String!
+  events: [WebhookEvent!]!
+  isActive: Boolean!
+  secret: String
+  createdAt: DateTime
+  modifiedAt: DateTime
+  lastTriggeredAt: DateTime
+}
+
+# ─── Input Types ──────────────────────────────────────────────────────────────
+
+input EmailInput {
+  subject: String!
+  toAddresses: [String!]!
+  ccAddresses: [String!]
+  bccAddresses: [String!]
+  replyToAddresses: [String!]
+  bodyText: String
+  bodyHtml: String
+  attachments: [Upload!]
+  inReplyToMessageId: ID
+  fromAlias: String
+  signatureId: ID
+}
+
+input DraftInput {
+  subject: String
+  toAddresses: [String!]
+  ccAddresses: [String!]
+  bccAddresses: [String!]
+  bodyText: String
+  bodyHtml: String
+  attachments: [Upload!]
+  inReplyToMessageId: ID
+  fromAlias: String
+}
+
+input FolderInput {
+  folderName: String!
+  parentFolderId: ID
+  color: String
+}
+
+input LabelInput {
+  labelName: String!
+  color: String
+}
+
+input ContactInput {
+  firstName: String
+  lastName: String
+  displayName: String
+  emails: [ContactEmailInput!]
+  phones: [ContactPhoneInput!]
+  company: String
+  jobTitle: String
+  department: String
+  birthday: String
+  notes: String
+  address: String
+  city: String
+  state: String
+  country: String
+  postalCode: String
+}
+
+input ContactEmailInput {
+  emailAddress: String!
+  label: String
+  isPrimary: Boolean
+}
+
+input ContactPhoneInput {
+  phoneNumber: String!
+  label: String
+  isPrimary: Boolean
+}
+
+input CalendarEventInput {
+  title: String!
+  description: String
+  location: String
+  startTime: DateTime!
+  endTime: DateTime!
+  isAllDay: Boolean
+  attendees: [String!]
+  reminders: [CalendarReminderInput!]
+  recurrenceRule: String
+  meetingUrl: String
+}
+
+input CalendarReminderInput {
+  method: String
+  minutesBefore: Int!
+}
+
+input TaskInput {
+  title: String!
+  description: String
+  taskListId: ID
+  priority: TaskPriority
+  dueDate: DateTime
+  assignees: [String!]
+  tags: [String!]
+}
+
+input NoteInput {
+  title: String
+  content: String
+  contentHtml: String
+  tags: [String!]
+}
+
+input FilterInput {
+  filterName: String
+  isEnabled: Boolean
+  conditionOperator: FilterConditionOperator
+  rules: [FilterRuleInput!]!
+  actions: [FilterActionInput!]!
+  priority: Int
+}
+
+input FilterRuleInput {
+  field: String!
+  operator: String!
+  value: String!
+}
+
+input FilterActionInput {
+  actionType: FilterActionType!
+  targetFolderId: ID
+  targetLabelId: ID
+  forwardToAddress: String
+}
+
+input SignatureInput {
+  signatureName: String!
+  signatureContent: String!
+  isHtml: Boolean
+  isDefault: Boolean
+}
+
+input AliasInput {
+  aliasEmail: String!
+  displayName: String
+  isDefault: Boolean
+}
+
+input WebhookInput {
+  targetUrl: String!
+  events: [WebhookEvent!]!
+  secret: String
+}
+
+input SearchCriteriaInput {
+  query: String
+  folderId: ID
+  labelId: ID
+  fromAddress: String
+  toAddress: String
+  subject: String
+  hasAttachment: Boolean
+  isRead: Boolean
+  isStarred: Boolean
+  dateFrom: DateTime
+  dateTo: DateTime
+  sizeMin: Int
+  sizeMax: Int
+  limit: Int
+  offset: Int
+}
+
+# ─── Query ────────────────────────────────────────────────────────────────────
+
+type Query {
+  """Fetch the top-level account."""
+  account(accountId: ID!): Account
+
+  """List all accessible email accounts."""
+  accounts: [EmailAccount!]!
+
+  """Fetch a specific email account."""
+  emailAccount(accountId: ID!): EmailAccount
+
+  """Fetch a folder by ID."""
+  folder(accountId: ID!, folderId: ID!): Folder
+
+  """List all folders for an account."""
+  folders(accountId: ID!): [Folder!]!
+
+  """Fetch the inbox folder."""
+  inbox(accountId: ID!): InboxFolder
+
+  """Fetch the sent folder."""
+  sentFolder(accountId: ID!): SentFolder
+
+  """Fetch the trash folder."""
+  trashFolder(accountId: ID!): TrashFolder
+
+  """Fetch the spam folder."""
+  spamFolder(accountId: ID!): SpamFolder
+
+  """Fetch a single email message."""
+  email(accountId: ID!, messageId: ID!): Email
+
+  """List emails in a folder."""
+  emails(accountId: ID!, folderId: ID!, limit: Int, offset: Int): [Email!]!
+
+  """Search emails with criteria."""
+  searchEmails(accountId: ID!, criteria: SearchCriteriaInput!): SearchResult!
+
+  """Fetch a conversation thread."""
+  thread(accountId: ID!, threadId: ID!): Thread
+
+  """List threads for a folder."""
+  threads(accountId: ID!, folderId: ID!, limit: Int, offset: Int): [Thread!]!
+
+  """List draft messages."""
+  drafts(accountId: ID!): [Draft!]!
+
+  """Fetch a single draft."""
+  draft(accountId: ID!, draftId: ID!): Draft
+
+  """List labels for an account."""
+  labels(accountId: ID!): [Label!]!
+
+  """Fetch a label."""
+  label(accountId: ID!, labelId: ID!): Label
+
+  """List mail filters."""
+  filters(accountId: ID!): [Filter!]!
+
+  """List contacts."""
+  contacts(accountId: ID!, limit: Int, offset: Int): [Contact!]!
+
+  """Fetch a single contact."""
+  contact(accountId: ID!, contactId: ID!): Contact
+
+  """List contact groups."""
+  contactGroups(accountId: ID!): [ContactGroup!]!
+
+  """Fetch a calendar."""
+  calendar(accountId: ID!, calendarId: ID!): Calendar
+
+  """List calendars."""
+  calendars(accountId: ID!): [Calendar!]!
+
+  """List calendar events."""
+  calendarEvents(accountId: ID!, calendarId: ID!, from: DateTime, to: DateTime): [CalendarEvent!]!
+
+  """Fetch a single calendar event."""
+  calendarEvent(accountId: ID!, eventId: ID!): CalendarEvent
+
+  """List tasks."""
+  tasks(accountId: ID!, taskListId: ID): [Task!]!
+
+  """List task lists."""
+  taskLists(accountId: ID!): [TaskList!]!
+
+  """List notes."""
+  notes(accountId: ID!): [Note!]!
+
+  """Fetch a single note."""
+  note(accountId: ID!, noteId: ID!): Note
+
+  """Fetch organization settings."""
+  organization: Organization
+
+  """List organization users."""
+  organizationUsers(limit: Int, offset: Int): [OrganizationUser!]!
+
+  """Fetch domain settings."""
+  domainSettings(domain: String!): DomainSettings
+
+  """List all domain settings."""
+  allDomainSettings: [DomainSettings!]!
+
+  """Fetch storage information."""
+  storageInfo(accountId: ID!): StorageInfo!
+
+  """List webhook subscriptions."""
+  webhooks: [Webhook!]!
+
+  """Fetch account signature."""
+  signature(accountId: ID!, signatureId: ID!): SignatureInfo
+
+  """List signatures for an account."""
+  signatures(accountId: ID!): [SignatureInfo!]!
+
+  """List aliases for an account."""
+  aliases(accountId: ID!): [Alias!]!
+
+  """Get attachment file data."""
+  attachmentFile(accountId: ID!, messageId: ID!, attachmentId: ID!): AttachmentFile
+}
+
+# ─── Mutation ─────────────────────────────────────────────────────────────────
+
+type Mutation {
+  """Send an email."""
+  createEmail(accountId: ID!, input: EmailInput!): Email!
+
+  """Create a draft."""
+  createDraft(accountId: ID!, input: DraftInput!): Draft!
+
+  """Update a draft."""
+  updateDraft(accountId: ID!, draftId: ID!, input: DraftInput!): Draft!
+
+  """Delete a draft."""
+  deleteDraft(accountId: ID!, draftId: ID!): Boolean!
+
+  """Send a draft."""
+  sendDraft(accountId: ID!, draftId: ID!): Email!
+
+  """Move an email to a folder."""
+  moveEmail(accountId: ID!, messageId: ID!, folderId: ID!): Email!
+
+  """Mark an email as read."""
+  markEmailRead(accountId: ID!, messageId: ID!): Email!
+
+  """Mark an email as unread."""
+  markEmailUnread(accountId: ID!, messageId: ID!): Email!
+
+  """Star an email."""
+  starEmail(accountId: ID!, messageId: ID!): Email!
+
+  """Delete an email."""
+  deleteEmail(accountId: ID!, messageId: ID!): Boolean!
+
+  """Move email to trash."""
+  trashEmail(accountId: ID!, messageId: ID!): Email!
+
+  """Mark email as spam."""
+  markEmailSpam(accountId: ID!, messageId: ID!): Email!
+
+  """Create a folder."""
+  createFolder(accountId: ID!, input: FolderInput!): Folder!
+
+  """Update a folder."""
+  updateFolder(accountId: ID!, folderId: ID!, input: FolderInput!): Folder!
+
+  """Delete a folder."""
+  deleteFolder(accountId: ID!, folderId: ID!): Boolean!
+
+  """Create a label."""
+  createLabel(accountId: ID!, input: LabelInput!): Label!
+
+  """Update a label."""
+  updateLabel(accountId: ID!, labelId: ID!, input: LabelInput!): Label!
+
+  """Delete a label."""
+  deleteLabel(accountId: ID!, labelId: ID!): Boolean!
+
+  """Apply a label to an email."""
+  addLabelToEmail(accountId: ID!, messageId: ID!, labelId: ID!): Email!
+
+  """Remove a label from an email."""
+  removeLabelFromEmail(accountId: ID!, messageId: ID!, labelId: ID!): Email!
+
+  """Create a contact."""
+  createContact(accountId: ID!, input: ContactInput!): Contact!
+
+  """Update a contact."""
+  updateContact(accountId: ID!, contactId: ID!, input: ContactInput!): Contact!
+
+  """Delete a contact."""
+  deleteContact(accountId: ID!, contactId: ID!): Boolean!
+
+  """Create a calendar event."""
+  createCalendarEvent(accountId: ID!, calendarId: ID!, input: CalendarEventInput!): CalendarEvent!
+
+  """Update a calendar event."""
+  updateCalendarEvent(accountId: ID!, eventId: ID!, input: CalendarEventInput!): CalendarEvent!
+
+  """Delete a calendar event."""
+  deleteCalendarEvent(accountId: ID!, eventId: ID!): Boolean!
+
+  """Create a task."""
+  createTask(accountId: ID!, input: TaskInput!): Task!
+
+  """Update a task."""
+  updateTask(accountId: ID!, taskId: ID!, input: TaskInput!): Task!
+
+  """Complete a task."""
+  completeTask(accountId: ID!, taskId: ID!): Task!
+
+  """Delete a task."""
+  deleteTask(accountId: ID!, taskId: ID!): Boolean!
+
+  """Create a note."""
+  createNote(accountId: ID!, input: NoteInput!): Note!
+
+  """Update a note."""
+  updateNote(accountId: ID!, noteId: ID!, input: NoteInput!): Note!
+
+  """Delete a note."""
+  deleteNote(accountId: ID!, noteId: ID!): Boolean!
+
+  """Create a mail filter."""
+  createFilter(accountId: ID!, input: FilterInput!): Filter!
+
+  """Update a mail filter."""
+  updateFilter(accountId: ID!, filterId: ID!, input: FilterInput!): Filter!
+
+  """Delete a mail filter."""
+  deleteFilter(accountId: ID!, filterId: ID!): Boolean!
+
+  """Update email signature."""
+  updateSignature(accountId: ID!, signatureId: ID!, input: SignatureInput!): SignatureInfo!
+
+  """Create an email signature."""
+  createSignature(accountId: ID!, input: SignatureInput!): SignatureInfo!
+
+  """Delete an email signature."""
+  deleteSignature(accountId: ID!, signatureId: ID!): Boolean!
+
+  """Create an email alias."""
+  createAlias(accountId: ID!, input: AliasInput!): Alias!
+
+  """Delete an email alias."""
+  deleteAlias(accountId: ID!, aliasId: ID!): Boolean!
+
+  """Register a webhook."""
+  createWebhook(input: WebhookInput!): Webhook!
+
+  """Update a webhook."""
+  updateWebhook(webhookId: ID!, input: WebhookInput!): Webhook!
+
+  """Delete a webhook."""
+  deleteWebhook(webhookId: ID!): Boolean!
+
+  """Configure auto-responder."""
+  updateAutoResponder(accountId: ID!, isEnabled: Boolean!, subject: String, bodyText: String, bodyHtml: String, startDate: DateTime, endDate: DateTime): AutoResponder!
+
+  """Create a forward rule."""
+  createForwardRule(accountId: ID!, forwardToAddress: String!, keepCopy: Boolean!): ForwardRule!
+
+  """Delete a forward rule."""
+  deleteForwardRule(accountId: ID!, ruleId: ID!): Boolean!
+}
+
+# ─── Subscription ─────────────────────────────────────────────────────────────
+
+type Subscription {
+  """Subscribe to new incoming emails."""
+  onEmailReceived(accountId: ID!): Email!
+
+  """Subscribe to email status changes."""
+  onEmailStatusChanged(accountId: ID!): Email!
+
+  """Subscribe to new calendar events."""
+  onCalendarEventCreated(accountId: ID!): CalendarEvent!
+
+  """Subscribe to new tasks."""
+  onTaskCreated(accountId: ID!): Task!
+}
