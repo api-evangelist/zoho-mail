@@ -1,7 +1,7 @@
 {
   "provider": "zoho-mail",
   "url": "https://blog.zoho.com/mail",
-  "fetched": "2026-06-13",
+  "fetched": "2026-06-14T20:42:17Z",
   "posts": [
     {
       "title": "Business email deliverability in 2026: Why enterprises must take this seriously",
@@ -143,5 +143,13 @@
       "url": "https://blog.zoho.com/mail/wrapping-up-2024.html",
       "readingTime": "6 minutes"
     }
-  ]
+  ],
+  "repo": "zoho-mail",
+  "feeds": [
+    {
+      "source": "https://in.linkedin.com/company/zoho-mail",
+      "error": "HTTPError"
+    }
+  ],
+  "post_count": 0
 }
