@@ -8,7 +8,7 @@ description: Zoho Mail is an ad-free, privacy-first email and collaboration plat
   Authentication uses OAuth 2.0 and responses are returned in JSON format with region-specific
   base URLs for US, Europe, India, Australia, Japan, Canada, UAE, Saudi Arabia, and
   China deployments.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/zoho-mail/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -29,7 +29,7 @@ apis:
     folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization
     settings, domains, groups, users, mail policies, and audit logs. Supports full
     CRUD operations across all modules with OAuth 2.0 authentication.
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.zoho.com/mail/help/api/overview.html
   baseURL: https://mail.zoho.com/api
   tags:
