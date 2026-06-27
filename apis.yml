@@ -80,7 +80,7 @@ common:
   url: finops/zoho-mail-finops.yml
 - type: BlogPosts
   url: blogs/blogs.json
-- type: JSONLd
+- type: JSONLD
   url: json-ld/zoho-mail.json
 maintainers:
 - FN: Kin Lane
