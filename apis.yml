@@ -56,6 +56,10 @@ apis:
     url: https://www.zoho.com/mail/help/
     email: support@zohomail.com
 common:
+- type: Authentication
+  url: authentication/zoho-mail-authentication.yml
+- type: OAuthScopes
+  url: scopes/zoho-mail-scopes.yml
 - type: Website
   url: https://www.zoho.com/mail/
 - type: Documentation

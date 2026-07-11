@@ -1,0 +1,77 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.json
+schemes:
+- name: OAuth2
+  source: openapi/openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.zoho.com/oauth/v2/auth
+    tokenUrl: https://accounts.zoho.com/oauth/v2/token
+scopes:
+- scope: ZohoMail.accounts
+  description: Access account settings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.accounts.READ
+  description: Read account details
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.bookmarks
+  description: Access bookmarks
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.folders
+  description: Access folders
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.labels
+  description: Access labels
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.messages
+  description: Access email messages
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.notes
+  description: Access notes
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.organization
+  description: Access organization settings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.organization.accounts
+  description: Admin access to user accounts
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.signatures
+  description: Access signatures
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
+- scope: ZohoMail.tasks
+  description: Access tasks
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/openapi.json
