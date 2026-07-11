@@ -56,6 +56,10 @@ apis:
     url: https://www.zoho.com/mail/help/
     email: support@zohomail.com
 common:
+- type: VulnerabilityDisclosure
+  url: security/zoho-mail-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/zoho-mail-domain-security.yml
 - type: Authentication
   url: authentication/zoho-mail-authentication.yml
 - type: OAuthScopes
