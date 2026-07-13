@@ -5,7 +5,7 @@
       "source": "https://blog.zoho.com/mail/feed/",
       "feed_url": "https://blog.zoho.com/mail/feed/",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -13,6 +13,6 @@
       "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:03:07Z",
-  "post_count": 2
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 11
 }
