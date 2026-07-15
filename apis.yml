@@ -56,6 +56,8 @@ apis:
     url: https://www.zoho.com/mail/help/
     email: support@zohomail.com
 common:
+- type: AgenticAccess
+  url: agentic-access/zoho-mail-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/zoho-mail-vulnerability-disclosure.yml
 - type: DomainSecurity

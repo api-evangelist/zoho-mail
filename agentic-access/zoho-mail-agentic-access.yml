@@ -1,0 +1,355 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 23
+  by_action_class:
+    connected: 13
+    acting: 10
+  by_consequence:
+    read: 13
+    write: 9
+    physical: 1
+  human_in_the_loop_required: 0
+operations:
+- path: /api/accounts
+  method: get
+  operationId: listAccounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.accounts.READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}
+  method: get
+  operationId: getAccount
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.accounts.READ
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}
+  method: put
+  operationId: updateAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.accounts
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/folders
+  method: get
+  operationId: listFolders
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.folders
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/folders
+  method: post
+  operationId: createFolder
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.folders
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/folders/{folderId}
+  method: get
+  operationId: getFolder
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.folders
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/folders/{folderId}
+  method: put
+  operationId: updateFolder
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.folders
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/folders/{folderId}
+  method: delete
+  operationId: deleteFolder
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.folders
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/messages
+  method: get
+  operationId: listMessages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/messages
+  method: post
+  operationId: sendMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - ZohoMail.messages
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/messages/search
+  method: get
+  operationId: searchMessages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/messages/attachments
+  method: post
+  operationId: uploadAttachment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.messages
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/messages/{messageId}
+  method: post
+  operationId: replyToMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.messages
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/messages/view
+  method: get
+  operationId: viewMessages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/updatemessage
+  method: put
+  operationId: updateMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.messages
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/folders/{folderId}/messages/{messageId}
+  method: delete
+  operationId: deleteMessage
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.messages
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/header
+  method: get
+  operationId: getMessageHeader
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/content
+  method: get
+  operationId: getMessageContent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/details
+  method: get
+  operationId: getMessageDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/attachmentinfo
+  method: get
+  operationId: getAttachmentInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/attachments/{attachmentId}
+  method: get
+  operationId: getAttachmentContent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/accounts/{accountId}/messages/{messageId}/originalmessage
+  method: get
+  operationId: getOriginalMessage
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - ZohoMail.messages
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/organization/{zoid}/accounts/{accountId}
+  method: put
+  operationId: adminUpdateAccount
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - ZohoMail.organization.accounts
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
