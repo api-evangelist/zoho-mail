@@ -1,0 +1,229 @@
+openapi: 3.0.3
+info:
+  title: Zoho Mail Accounts API
+  description: REST API for Zoho Mail providing programmatic access to email accounts, folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization settings, domains, groups, users, mail policies, and audit logs. Supports full CRUD operations across all modules with OAuth 2.0 authentication.
+  version: 1.0.0
+  contact:
+    name: Zoho Mail Support
+    url: https://www.zoho.com/mail/help/
+    email: support@zohomail.com
+  termsOfService: https://www.zoho.com/mail/zohomail-pricing.html
+  license:
+    name: Zoho Terms of Service
+    url: https://www.zoho.com/terms.html
+servers:
+- url: https://mail.zoho.com
+  description: US Data Center
+- url: https://mail.zoho.eu
+  description: Europe Data Center
+- url: https://mail.zoho.in
+  description: India Data Center
+- url: https://mail.zoho.com.au
+  description: Australia Data Center
+- url: https://mail.zoho.jp
+  description: Japan Data Center
+- url: https://mail.zohocloud.ca
+  description: Canada Data Center
+- url: https://mail.zoho.ae
+  description: UAE Data Center
+- url: https://mail.zoho.sa
+  description: Saudi Arabia Data Center
+- url: https://mail.zoho.com.cn
+  description: China Data Center
+security:
+- OAuth2:
+  - ZohoMail.messages
+  - ZohoMail.accounts
+  - ZohoMail.folders
+  - ZohoMail.organization
+tags:
+- name: Accounts
+  description: Manage email accounts, vacation replies, forwarding, and account settings
+paths:
+  /api/accounts:
+    get:
+      operationId: listAccounts
+      summary: Get authenticated user accounts
+      description: Retrieve the account details of the currently authenticated user.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - ZohoMail.accounts.READ
+      responses:
+        '200':
+          description: Successful response with account list
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ApiResponse'
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Account'
+  /api/accounts/{accountId}:
+    get:
+      operationId: getAccount
+      summary: Get account details
+      description: Retrieve details for a specific account by ID.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - ZohoMail.accounts.READ
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Successful response with account details
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ApiResponse'
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/Account'
+    put:
+      operationId: updateAccount
+      summary: Update account settings
+      description: Modify account settings including display name, email address, forwarding, vacation reply, and mail processing sequence.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - ZohoMail.accounts
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mode:
+                  type: string
+                  description: 'Update mode: setProcessingSeq, setReplyTo, resendReplyToVerification, addSendMailDetails, updateDisplayName, updateEmailAddress, addForwarding, activateForwarding, deactivateForwarding, removeForwarding, addVacationReply, updateVacationReply, removeVacationReply'
+                displayName:
+                  type: string
+                  description: Display name for the account
+                emailAddress:
+                  type: string
+                  format: email
+                  description: Email address to set
+                forwardAddress:
+                  type: string
+                  format: email
+                  description: Email address to forward messages to
+      responses:
+        '200':
+          description: Account updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api/organization/{zoid}/accounts/{accountId}:
+    put:
+      operationId: adminUpdateAccount
+      summary: Admin update user account
+      description: Admin endpoint to modify user account settings including display name, email address, forwarding, vacation reply, and mail processing sequence.
+      tags:
+      - Accounts
+      security:
+      - OAuth2:
+        - ZohoMail.organization.accounts
+      parameters:
+      - $ref: '#/components/parameters/zoid'
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mode:
+                  type: string
+                  description: Update mode for admin operations
+      responses:
+        '200':
+          description: Account updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    ApiStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: Unique account identifier
+        emailAddress:
+          type: string
+          format: email
+          description: Primary email address for the account
+        displayName:
+          type: string
+          description: Display name used when sending email
+        accountName:
+          type: string
+          description: Name of the email account
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
+  parameters:
+    zoid:
+      name: zoid
+      in: path
+      required: true
+      description: The unique identifier for the organization.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier for the email account.
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.zoho.com/oauth/v2/auth
+          tokenUrl: https://accounts.zoho.com/oauth/v2/token
+          refreshUrl: https://accounts.zoho.com/oauth/v2/token
+          scopes:
+            ZohoMail.messages: Access email messages
+            ZohoMail.accounts: Access account settings
+            ZohoMail.accounts.READ: Read account details
+            ZohoMail.folders: Access folders
+            ZohoMail.labels: Access labels
+            ZohoMail.signatures: Access signatures
+            ZohoMail.tasks: Access tasks
+            ZohoMail.bookmarks: Access bookmarks
+            ZohoMail.notes: Access notes
+            ZohoMail.organization: Access organization settings
+            ZohoMail.organization.accounts: Admin access to user accounts
+externalDocs:
+  description: Zoho Mail API Documentation
+  url: https://www.zoho.com/mail/help/api/overview.html

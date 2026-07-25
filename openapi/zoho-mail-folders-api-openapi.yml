@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: Zoho Mail Accounts Folders API
+  description: REST API for Zoho Mail providing programmatic access to email accounts, folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization settings, domains, groups, users, mail policies, and audit logs. Supports full CRUD operations across all modules with OAuth 2.0 authentication.
+  version: 1.0.0
+  contact:
+    name: Zoho Mail Support
+    url: https://www.zoho.com/mail/help/
+    email: support@zohomail.com
+  termsOfService: https://www.zoho.com/mail/zohomail-pricing.html
+  license:
+    name: Zoho Terms of Service
+    url: https://www.zoho.com/terms.html
+servers:
+- url: https://mail.zoho.com
+  description: US Data Center
+- url: https://mail.zoho.eu
+  description: Europe Data Center
+- url: https://mail.zoho.in
+  description: India Data Center
+- url: https://mail.zoho.com.au
+  description: Australia Data Center
+- url: https://mail.zoho.jp
+  description: Japan Data Center
+- url: https://mail.zohocloud.ca
+  description: Canada Data Center
+- url: https://mail.zoho.ae
+  description: UAE Data Center
+- url: https://mail.zoho.sa
+  description: Saudi Arabia Data Center
+- url: https://mail.zoho.com.cn
+  description: China Data Center
+security:
+- OAuth2:
+  - ZohoMail.messages
+  - ZohoMail.accounts
+  - ZohoMail.folders
+  - ZohoMail.organization
+tags:
+- name: Folders
+  description: Create and manage email folders
+paths:
+  /api/accounts/{accountId}/folders:
+    get:
+      operationId: listFolders
+      summary: List all folders
+      description: Retrieve all folders in an account with their IDs and metadata.
+      tags:
+      - Folders
+      security:
+      - OAuth2:
+        - ZohoMail.folders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Successful response with folder list
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ApiResponse'
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Folder'
+    post:
+      operationId: createFolder
+      summary: Create a folder
+      description: Create a new folder with the specified name and details.
+      tags:
+      - Folders
+      security:
+      - OAuth2:
+        - ZohoMail.folders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderName
+              properties:
+                folderName:
+                  type: string
+                  description: Name for the new folder
+                parentFolderId:
+                  type: string
+                  description: Parent folder ID for creating nested folders
+      responses:
+        '200':
+          description: Folder created successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ApiResponse'
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/Folder'
+  /api/accounts/{accountId}/folders/{folderId}:
+    get:
+      operationId: getFolder
+      summary: Get folder details
+      description: Fetch details for a specific folder.
+      tags:
+      - Folders
+      security:
+      - OAuth2:
+        - ZohoMail.folders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/folderId'
+      responses:
+        '200':
+          description: Successful response with folder details
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/ApiResponse'
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/Folder'
+    put:
+      operationId: updateFolder
+      summary: Update folder
+      description: Rename a folder, reposition it, enable or disable IMAP view, mark all emails as read, or delete all emails within a folder.
+      tags:
+      - Folders
+      security:
+      - OAuth2:
+        - ZohoMail.folders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/folderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mode:
+                  type: string
+                  description: 'Update mode: renameFolder, repositionFolder, enableImap, disableImap, markAllRead, deleteAllMessages'
+                folderName:
+                  type: string
+                  description: New folder name (for renameFolder mode)
+                position:
+                  type: integer
+                  description: New position in folder hierarchy (for repositionFolder mode)
+      responses:
+        '200':
+          description: Folder updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    delete:
+      operationId: deleteFolder
+      summary: Delete folder
+      description: Delete the folder along with the emails and sub-folders.
+      tags:
+      - Folders
+      security:
+      - OAuth2:
+        - ZohoMail.folders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - $ref: '#/components/parameters/folderId'
+      responses:
+        '200':
+          description: Folder deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    Folder:
+      type: object
+      properties:
+        folderId:
+          type: string
+          description: Unique folder identifier
+        folderName:
+          type: string
+          description: Name of the folder
+        path:
+          type: string
+          description: Full folder path
+        messageCount:
+          type: integer
+          description: Total number of messages in the folder
+        unreadCount:
+          type: integer
+          description: Number of unread messages
+    ApiStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
+  parameters:
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier for the email account.
+      schema:
+        type: string
+    folderId:
+      name: folderId
+      in: path
+      required: true
+      description: The unique identifier for the folder.
+      schema:
+        type: string
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.zoho.com/oauth/v2/auth
+          tokenUrl: https://accounts.zoho.com/oauth/v2/token
+          refreshUrl: https://accounts.zoho.com/oauth/v2/token
+          scopes:
+            ZohoMail.messages: Access email messages
+            ZohoMail.accounts: Access account settings
+            ZohoMail.accounts.READ: Read account details
+            ZohoMail.folders: Access folders
+            ZohoMail.labels: Access labels
+            ZohoMail.signatures: Access signatures
+            ZohoMail.tasks: Access tasks
+            ZohoMail.bookmarks: Access bookmarks
+            ZohoMail.notes: Access notes
+            ZohoMail.organization: Access organization settings
+            ZohoMail.organization.accounts: Admin access to user accounts
+externalDocs:
+  description: Zoho Mail API Documentation
+  url: https://www.zoho.com/mail/help/api/overview.html
