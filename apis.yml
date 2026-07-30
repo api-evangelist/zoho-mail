@@ -8,7 +8,20 @@ description: Zoho Mail is an ad-free, privacy-first email and collaboration plat
   Authentication uses OAuth 2.0 and responses are returned in JSON format with region-specific
   base URLs for US, Europe, India, Australia, Japan, Canada, UAE, Saudi Arabia, and
   China deployments.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/zoho-mail.png
 url: https://raw.githubusercontent.com/api-evangelist/zoho-mail/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -23,22 +36,16 @@ tags:
 - Organization Management
 - SaaS
 apis:
-- aid: zoho-mail:zoho-mail-api
-  name: Zoho Mail API
-  description: REST API for Zoho Mail providing programmatic access to email accounts,
-    folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization
-    settings, domains, groups, users, mail policies, and audit logs. Supports full
-    CRUD operations across all modules with OAuth 2.0 authentication.
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: zoho-mail:zoho-mail-accounts-api
+  name: Zoho Mail Accounts API
+  description: Manage email accounts, vacation replies, forwarding, and account settings
   humanURL: https://www.zoho.com/mail/help/api/overview.html
   baseURL: https://mail.zoho.com/api
   tags:
-  - Email
-  - Mail
-  - REST API
-  - Organization
-  - Messaging
+  - Accounts
   properties:
+  - type: OpenAPI
+    url: openapi/zoho-mail-accounts-api-openapi.yml
   - type: Documentation
     url: https://www.zoho.com/mail/help/api/overview.html
   - type: GettingStarted
@@ -47,14 +54,68 @@ apis:
     url: https://www.zoho.com/mail/help/api/using-oauth-2.html
   - type: OpenAPISpec
     url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
+  - type: GraphQL
+    url: graphql/zoho-mail-graphql.md
+- aid: zoho-mail:zoho-mail-folders-api
+  name: Zoho Mail Folders API
+  description: Create and manage email folders
+  humanURL: https://www.zoho.com/mail/help/api/overview.html
+  baseURL: https://mail.zoho.com/api
+  tags:
+  - Folders
+  properties:
   - type: OpenAPI
-    url: openapi/openapi.json
-  - url: graphql/zoho-mail-graphql.md
-    type: GraphQL
-  contact:
-  - FN: Zoho Mail Support
-    url: https://www.zoho.com/mail/help/
-    email: support@zohomail.com
+    url: openapi/zoho-mail-folders-api-openapi.yml
+  - type: Documentation
+    url: https://www.zoho.com/mail/help/api/overview.html
+  - type: GettingStarted
+    url: https://www.zoho.com/mail/help/api/getting-started-with-api.html
+  - type: Authentication
+    url: https://www.zoho.com/mail/help/api/using-oauth-2.html
+  - type: OpenAPISpec
+    url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
+  - type: GraphQL
+    url: graphql/zoho-mail-graphql.md
+- aid: zoho-mail:zoho-mail-messages-api
+  name: Zoho Mail Messages API
+  description: Send, receive, search, and manage email messages and attachments
+  humanURL: https://www.zoho.com/mail/help/api/overview.html
+  baseURL: https://mail.zoho.com/api
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/zoho-mail-messages-api-openapi.yml
+  - type: Documentation
+    url: https://www.zoho.com/mail/help/api/overview.html
+  - type: GettingStarted
+    url: https://www.zoho.com/mail/help/api/getting-started-with-api.html
+  - type: Authentication
+    url: https://www.zoho.com/mail/help/api/using-oauth-2.html
+  - type: OpenAPISpec
+    url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
+  - type: GraphQL
+    url: graphql/zoho-mail-graphql.md
+- aid: zoho-mail:zoho-mail-organization-api
+  name: Zoho Mail Organization API
+  description: Admin-level organization, domain, group, user, and policy management
+  humanURL: https://www.zoho.com/mail/help/api/overview.html
+  baseURL: https://mail.zoho.com/api
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/zoho-mail-organization-api-openapi.yml
+  - type: Documentation
+    url: https://www.zoho.com/mail/help/api/overview.html
+  - type: GettingStarted
+    url: https://www.zoho.com/mail/help/api/getting-started-with-api.html
+  - type: Authentication
+    url: https://www.zoho.com/mail/help/api/using-oauth-2.html
+  - type: OpenAPISpec
+    url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
+  - type: GraphQL
+    url: graphql/zoho-mail-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/zoho-mail-agentic-access.yml
