@@ -1,0 +1,1174 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Zoho Mail API",
+    "description": "REST API for Zoho Mail providing programmatic access to email accounts, folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization settings, domains, groups, users, mail policies, and audit logs. Supports full CRUD operations across all modules with OAuth 2.0 authentication.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Zoho Mail Support",
+      "url": "https://www.zoho.com/mail/help/",
+      "email": "support@zohomail.com"
+    },
+    "termsOfService": "https://www.zoho.com/mail/zohomail-pricing.html",
+    "license": {
+      "name": "Zoho Terms of Service",
+      "url": "https://www.zoho.com/terms.html"
+    }
+  },
+  "externalDocs": {
+    "description": "Zoho Mail API Documentation",
+    "url": "https://www.zoho.com/mail/help/api/overview.html"
+  },
+  "servers": [
+    {
+      "url": "https://mail.zoho.com",
+      "description": "US Data Center"
+    },
+    {
+      "url": "https://mail.zoho.eu",
+      "description": "Europe Data Center"
+    },
+    {
+      "url": "https://mail.zoho.in",
+      "description": "India Data Center"
+    },
+    {
+      "url": "https://mail.zoho.com.au",
+      "description": "Australia Data Center"
+    },
+    {
+      "url": "https://mail.zoho.jp",
+      "description": "Japan Data Center"
+    },
+    {
+      "url": "https://mail.zohocloud.ca",
+      "description": "Canada Data Center"
+    },
+    {
+      "url": "https://mail.zoho.ae",
+      "description": "UAE Data Center"
+    },
+    {
+      "url": "https://mail.zoho.sa",
+      "description": "Saudi Arabia Data Center"
+    },
+    {
+      "url": "https://mail.zoho.com.cn",
+      "description": "China Data Center"
+    }
+  ],
+  "security": [
+    {
+      "OAuth2": ["ZohoMail.messages", "ZohoMail.accounts", "ZohoMail.folders", "ZohoMail.organization"]
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://accounts.zoho.com/oauth/v2/auth",
+            "tokenUrl": "https://accounts.zoho.com/oauth/v2/token",
+            "refreshUrl": "https://accounts.zoho.com/oauth/v2/token",
+            "scopes": {
+              "ZohoMail.messages": "Access email messages",
+              "ZohoMail.accounts": "Access account settings",
+              "ZohoMail.accounts.READ": "Read account details",
+              "ZohoMail.folders": "Access folders",
+              "ZohoMail.labels": "Access labels",
+              "ZohoMail.signatures": "Access signatures",
+              "ZohoMail.tasks": "Access tasks",
+              "ZohoMail.bookmarks": "Access bookmarks",
+              "ZohoMail.notes": "Access notes",
+              "ZohoMail.organization": "Access organization settings",
+              "ZohoMail.organization.accounts": "Admin access to user accounts"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "accountId": {
+        "name": "accountId",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier for the email account.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "folderId": {
+        "name": "folderId",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier for the folder.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "messageId": {
+        "name": "messageId",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier for the email message.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "attachmentId": {
+        "name": "attachmentId",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier for the attachment.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "zoid": {
+        "name": "zoid",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier for the organization.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "ApiStatus": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "HTTP-style status code"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable status description"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ApiStatus"
+          },
+          "data": {
+            "description": "Response payload; structure varies by endpoint"
+          }
+        }
+      },
+      "Account": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "description": "Unique account identifier"
+          },
+          "emailAddress": {
+            "type": "string",
+            "format": "email",
+            "description": "Primary email address for the account"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Display name used when sending email"
+          },
+          "accountName": {
+            "type": "string",
+            "description": "Name of the email account"
+          }
+        }
+      },
+      "Folder": {
+        "type": "object",
+        "properties": {
+          "folderId": {
+            "type": "string",
+            "description": "Unique folder identifier"
+          },
+          "folderName": {
+            "type": "string",
+            "description": "Name of the folder"
+          },
+          "path": {
+            "type": "string",
+            "description": "Full folder path"
+          },
+          "messageCount": {
+            "type": "integer",
+            "description": "Total number of messages in the folder"
+          },
+          "unreadCount": {
+            "type": "integer",
+            "description": "Number of unread messages"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string",
+            "description": "Unique message identifier"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject line"
+          },
+          "fromAddress": {
+            "type": "string",
+            "format": "email",
+            "description": "Sender email address"
+          },
+          "toAddress": {
+            "type": "string",
+            "description": "Recipient email addresses"
+          },
+          "ccAddress": {
+            "type": "string",
+            "description": "CC email addresses"
+          },
+          "bccAddress": {
+            "type": "string",
+            "description": "BCC email addresses"
+          },
+          "sentDateInGMT": {
+            "type": "string",
+            "description": "Date and time the message was sent in GMT"
+          },
+          "hasAttachment": {
+            "type": "string",
+            "description": "Indicates if the message has attachments (true/false)"
+          },
+          "isUnread": {
+            "type": "string",
+            "description": "Indicates if the message is unread (true/false)"
+          }
+        }
+      },
+      "SendMessageRequest": {
+        "type": "object",
+        "required": ["fromAddress", "toAddress", "subject"],
+        "properties": {
+          "fromAddress": {
+            "type": "string",
+            "format": "email",
+            "description": "Sender email address"
+          },
+          "toAddress": {
+            "type": "string",
+            "description": "Recipient email addresses (comma-separated)"
+          },
+          "ccAddress": {
+            "type": "string",
+            "description": "CC email addresses (comma-separated)"
+          },
+          "bccAddress": {
+            "type": "string",
+            "description": "BCC email addresses (comma-separated)"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject"
+          },
+          "content": {
+            "type": "string",
+            "description": "Email body content"
+          },
+          "mailFormat": {
+            "type": "string",
+            "enum": ["html", "plaintext"],
+            "description": "Format of the email body"
+          },
+          "encoding": {
+            "type": "string",
+            "description": "Character encoding for the email"
+          }
+        }
+      },
+      "UpdateMessageRequest": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "Action to perform: markAsRead, markAsUnread, moveMessage, flagMessage, addLabel, removeLabel, markAsSpam, markAsNotSpam, archiveMessage, unarchiveMessage"
+          },
+          "messageId": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of message IDs to update"
+          },
+          "folderId": {
+            "type": "string",
+            "description": "Target folder ID (used with moveMessage)"
+          },
+          "labelId": {
+            "type": "string",
+            "description": "Label ID to add or remove"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/api/accounts": {
+      "get": {
+        "operationId": "listAccounts",
+        "summary": "Get authenticated user accounts",
+        "description": "Retrieve the account details of the currently authenticated user.",
+        "tags": ["Accounts"],
+        "security": [{"OAuth2": ["ZohoMail.accounts.READ"]}],
+        "responses": {
+          "200": {
+            "description": "Successful response with account list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {"$ref": "#/components/schemas/Account"}
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}": {
+      "get": {
+        "operationId": "getAccount",
+        "summary": "Get account details",
+        "description": "Retrieve details for a specific account by ID.",
+        "tags": ["Accounts"],
+        "security": [{"OAuth2": ["ZohoMail.accounts.READ"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with account details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {"$ref": "#/components/schemas/Account"}
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateAccount",
+        "summary": "Update account settings",
+        "description": "Modify account settings including display name, email address, forwarding, vacation reply, and mail processing sequence.",
+        "tags": ["Accounts"],
+        "security": [{"OAuth2": ["ZohoMail.accounts"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "description": "Update mode: setProcessingSeq, setReplyTo, resendReplyToVerification, addSendMailDetails, updateDisplayName, updateEmailAddress, addForwarding, activateForwarding, deactivateForwarding, removeForwarding, addVacationReply, updateVacationReply, removeVacationReply"
+                  },
+                  "displayName": {
+                    "type": "string",
+                    "description": "Display name for the account"
+                  },
+                  "emailAddress": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address to set"
+                  },
+                  "forwardAddress": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email address to forward messages to"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders": {
+      "get": {
+        "operationId": "listFolders",
+        "summary": "List all folders",
+        "description": "Retrieve all folders in an account with their IDs and metadata.",
+        "tags": ["Folders"],
+        "security": [{"OAuth2": ["ZohoMail.folders"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with folder list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {"$ref": "#/components/schemas/Folder"}
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createFolder",
+        "summary": "Create a folder",
+        "description": "Create a new folder with the specified name and details.",
+        "tags": ["Folders"],
+        "security": [{"OAuth2": ["ZohoMail.folders"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["folderName"],
+                "properties": {
+                  "folderName": {
+                    "type": "string",
+                    "description": "Name for the new folder"
+                  },
+                  "parentFolderId": {
+                    "type": "string",
+                    "description": "Parent folder ID for creating nested folders"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Folder created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {"$ref": "#/components/schemas/Folder"}
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}": {
+      "get": {
+        "operationId": "getFolder",
+        "summary": "Get folder details",
+        "description": "Fetch details for a specific folder.",
+        "tags": ["Folders"],
+        "security": [{"OAuth2": ["ZohoMail.folders"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with folder details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {"$ref": "#/components/schemas/Folder"}
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateFolder",
+        "summary": "Update folder",
+        "description": "Rename a folder, reposition it, enable or disable IMAP view, mark all emails as read, or delete all emails within a folder.",
+        "tags": ["Folders"],
+        "security": [{"OAuth2": ["ZohoMail.folders"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "description": "Update mode: renameFolder, repositionFolder, enableImap, disableImap, markAllRead, deleteAllMessages"
+                  },
+                  "folderName": {
+                    "type": "string",
+                    "description": "New folder name (for renameFolder mode)"
+                  },
+                  "position": {
+                    "type": "integer",
+                    "description": "New position in folder hierarchy (for repositionFolder mode)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Folder updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteFolder",
+        "summary": "Delete folder",
+        "description": "Delete the folder along with the emails and sub-folders.",
+        "tags": ["Folders"],
+        "security": [{"OAuth2": ["ZohoMail.folders"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Folder deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/messages": {
+      "get": {
+        "operationId": "listMessages",
+        "summary": "List emails in folder",
+        "description": "Get all or a specific set of emails in a folder based on view options.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {
+            "name": "folderId",
+            "in": "query",
+            "description": "Folder ID to list messages from",
+            "schema": {"type": "string"}
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Starting index for pagination",
+            "schema": {"type": "integer", "default": 0}
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of messages to retrieve",
+            "schema": {"type": "integer", "default": 200}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with message list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {"$ref": "#/components/schemas/Message"}
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "sendMessage",
+        "summary": "Send an email",
+        "description": "Send an email specifying the From, To, Cc, Bcc, Subject, Encoding and Email format.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {"$ref": "#/components/schemas/SendMessageRequest"}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "messageId": {"type": "string"},
+                            "subject": {"type": "string"},
+                            "fromAddress": {"type": "string"}
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/messages/search": {
+      "get": {
+        "operationId": "searchMessages",
+        "summary": "Search emails",
+        "description": "Retrieve messages using custom search criteria.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {
+            "name": "searchKey",
+            "in": "query",
+            "description": "Search keyword or phrase",
+            "schema": {"type": "string"}
+          },
+          {
+            "name": "folder",
+            "in": "query",
+            "description": "Folder ID to search within",
+            "schema": {"type": "string"}
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Starting index for pagination",
+            "schema": {"type": "integer", "default": 0}
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results to return",
+            "schema": {"type": "integer", "default": 200}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {"$ref": "#/components/schemas/Message"}
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/messages/attachments": {
+      "post": {
+        "operationId": "uploadAttachment",
+        "summary": "Upload an attachment",
+        "description": "Upload a file before attaching it to an email.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attach": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "File to upload as an attachment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Attachment uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "attachmentId": {"type": "string"},
+                            "attachmentName": {"type": "string"},
+                            "attachmentSize": {"type": "integer"}
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/messages/{messageId}": {
+      "post": {
+        "operationId": "replyToMessage",
+        "summary": "Reply to email",
+        "description": "Respond to a received message.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {"$ref": "#/components/schemas/SendMessageRequest"}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reply sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/messages/view": {
+      "get": {
+        "operationId": "viewMessages",
+        "summary": "Get emails in folder by view",
+        "description": "Get details of all or a specific set of emails in a folder based on view options.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {
+            "name": "folderId",
+            "in": "query",
+            "required": true,
+            "description": "Folder ID to retrieve emails from",
+            "schema": {"type": "string"}
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Starting index for pagination",
+            "schema": {"type": "integer", "default": 0}
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of messages to retrieve",
+            "schema": {"type": "integer", "default": 200}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with message list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {"$ref": "#/components/schemas/Message"}
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/updatemessage": {
+      "put": {
+        "operationId": "updateMessage",
+        "summary": "Update message(s)",
+        "description": "Perform bulk operations on messages: mark as read/unread, move, flag, apply or remove labels, archive/unarchive, mark as spam/not spam.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {"$ref": "#/components/schemas/UpdateMessageRequest"}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Messages updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}/messages/{messageId}": {
+      "delete": {
+        "operationId": "deleteMessage",
+        "summary": "Delete email",
+        "description": "Permanently delete an email message.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Message deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/header": {
+      "get": {
+        "operationId": "getMessageHeader",
+        "summary": "Get email headers",
+        "description": "Retrieve the headers of a specific email message.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with email headers",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/content": {
+      "get": {
+        "operationId": "getMessageContent",
+        "summary": "Get email content",
+        "description": "Retrieve the body/content of a specific email message.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with email content",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/details": {
+      "get": {
+        "operationId": "getMessageDetails",
+        "summary": "Get email metadata",
+        "description": "Retrieve metadata and details for a specific email message.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with email metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {"$ref": "#/components/schemas/ApiResponse"},
+                    {
+                      "properties": {
+                        "data": {"$ref": "#/components/schemas/Message"}
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/attachmentinfo": {
+      "get": {
+        "operationId": "getAttachmentInfo",
+        "summary": "Get attachment information",
+        "description": "Retrieve information about attachments in a specific email.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with attachment info",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/folders/{folderId}/messages/{messageId}/attachments/{attachmentId}": {
+      "get": {
+        "operationId": "getAttachmentContent",
+        "summary": "Get attachment content",
+        "description": "Get the content stream of attachments in an email.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/folderId"},
+          {"$ref": "#/components/parameters/messageId"},
+          {"$ref": "#/components/parameters/attachmentId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Attachment content stream",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{accountId}/messages/{messageId}/originalmessage": {
+      "get": {
+        "operationId": "getOriginalMessage",
+        "summary": "Get original message",
+        "description": "Obtain the MIME representation of the original email message.",
+        "tags": ["Messages"],
+        "security": [{"OAuth2": ["ZohoMail.messages"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/accountId"},
+          {"$ref": "#/components/parameters/messageId"}
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with original MIME message",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/organization/{zoid}/accounts/{accountId}": {
+      "put": {
+        "operationId": "adminUpdateAccount",
+        "summary": "Admin update user account",
+        "description": "Admin endpoint to modify user account settings including display name, email address, forwarding, vacation reply, and mail processing sequence.",
+        "tags": ["Organization", "Accounts"],
+        "security": [{"OAuth2": ["ZohoMail.organization.accounts"]}],
+        "parameters": [
+          {"$ref": "#/components/parameters/zoid"},
+          {"$ref": "#/components/parameters/accountId"}
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "description": "Update mode for admin operations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ApiResponse"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Manage email accounts, vacation replies, forwarding, and account settings"
+    },
+    {
+      "name": "Folders",
+      "description": "Create and manage email folders"
+    },
+    {
+      "name": "Messages",
+      "description": "Send, receive, search, and manage email messages and attachments"
+    },
+    {
+      "name": "Organization",
+      "description": "Admin-level organization, domain, group, user, and policy management"
+    }
+  ]
+}

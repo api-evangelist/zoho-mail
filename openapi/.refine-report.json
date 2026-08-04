@@ -1,0 +1,20 @@
+{
+  "provider": "zoho-mail",
+  "sources": [
+    "zoho-mail-accounts-api-openapi.yml",
+    "zoho-mail-folders-api-openapi.yml",
+    "zoho-mail-messages-api-openapi.yml",
+    "zoho-mail-organization-api-openapi.yml"
+  ],
+  "outputs": [
+    "zoho-mail-accounts-api-openapi.yml",
+    "zoho-mail-folders-api-openapi.yml",
+    "zoho-mail-messages-api-openapi.yml",
+    "zoho-mail-organization-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

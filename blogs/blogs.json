@@ -2,17 +2,10 @@
   "repo": "zoho-mail",
   "feeds": [
     {
-      "source": "https://blog.zoho.com/mail/feed/",
-      "feed_url": "https://blog.zoho.com/mail/feed/",
-      "title": "",
-      "saved": 0,
-      "method": "feed"
-    },
-    {
       "source": "https://in.linkedin.com/company/zoho-mail",
       "error": "HTTPError"
     }
   ],
-  "fetched": "2026-07-11T11:50:51Z",
+  "fetched": "2026-08-01T15:49:00Z",
   "post_count": 11
 }
