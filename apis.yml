@@ -34,6 +34,15 @@ tags:
 - Calendar
 - Contacts
 - Organization Management
+- Software-as-a-Service
+tags_raw:
+- Email
+- Mail
+- Collaboration
+- Messaging
+- Calendar
+- Contacts
+- Organization Management
 - SaaS
 apis:
 - aid: zoho-mail:zoho-mail-accounts-api
@@ -42,6 +51,8 @@ apis:
   humanURL: https://www.zoho.com/mail/help/api/overview.html
   baseURL: https://mail.zoho.com/api
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -82,6 +93,8 @@ apis:
   humanURL: https://www.zoho.com/mail/help/api/overview.html
   baseURL: https://mail.zoho.com/api
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
