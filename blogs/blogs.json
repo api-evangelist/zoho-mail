@@ -3,13 +3,9 @@
   "feeds": [
     {
       "source": "https://in.linkedin.com/company/zoho-mail",
-      "feed_url": "https://in.linkedin.com/company/zoho-mail",
-      "title": "",
-      "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-08-15T12:11:08Z",
+  "fetched": "2026-08-22T20:20:02Z",
   "post_count": 11
 }
