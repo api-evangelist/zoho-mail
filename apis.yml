@@ -8,6 +8,18 @@ description: Zoho Mail is an ad-free, privacy-first email and collaboration plat
   Authentication uses OAuth 2.0 and responses are returned in JSON format with region-specific
   base URLs for US, Europe, India, Australia, Japan, Canada, UAE, Saudi Arabia, and
   China deployments.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
