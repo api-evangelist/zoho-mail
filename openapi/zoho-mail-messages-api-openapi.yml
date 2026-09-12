@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Zoho Mail Accounts Messages API
   description: REST API for Zoho Mail providing programmatic access to email accounts, folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization settings, domains, groups, users, mail policies, and audit logs. Supports full CRUD operations across all modules with OAuth 2.0 authentication.
@@ -452,23 +452,67 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
 components:
+  parameters:
+    folderId:
+      name: folderId
+      in: path
+      required: true
+      description: The unique identifier for the folder.
+      schema:
+        type: string
+    messageId:
+      name: messageId
+      in: path
+      required: true
+      description: The unique identifier for the email message.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier for the email account.
+      schema:
+        type: string
+    attachmentId:
+      name: attachmentId
+      in: path
+      required: true
+      description: The unique identifier for the attachment.
+      schema:
+        type: string
   schemas:
-    ApiStatus:
+    Message:
       type: object
       properties:
-        code:
-          type: integer
-          description: HTTP-style status code
-        description:
+        messageId:
           type: string
-          description: Human-readable status description
-    ApiResponse:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/ApiStatus'
-        data:
-          description: Response payload; structure varies by endpoint
+          description: Unique message identifier
+        subject:
+          type: string
+          description: Email subject line
+        fromAddress:
+          type: string
+          format: email
+          description: Sender email address
+        toAddress:
+          type: string
+          description: Recipient email addresses
+        ccAddress:
+          type: string
+          description: CC email addresses
+        bccAddress:
+          type: string
+          description: BCC email addresses
+        sentDateInGMT:
+          type: string
+          description: Date and time the message was sent in GMT
+        hasAttachment:
+          type: string
+          description: Indicates if the message has attachments (true/false)
+        isUnread:
+          type: string
+          description: Indicates if the message is unread (true/false)
     UpdateMessageRequest:
       type: object
       properties:
@@ -486,6 +530,22 @@ components:
         labelId:
           type: string
           description: Label ID to add or remove
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
+    ApiStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
     SendMessageRequest:
       type: object
       required:
@@ -521,66 +581,6 @@ components:
         encoding:
           type: string
           description: Character encoding for the email
-    Message:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: Unique message identifier
-        subject:
-          type: string
-          description: Email subject line
-        fromAddress:
-          type: string
-          format: email
-          description: Sender email address
-        toAddress:
-          type: string
-          description: Recipient email addresses
-        ccAddress:
-          type: string
-          description: CC email addresses
-        bccAddress:
-          type: string
-          description: BCC email addresses
-        sentDateInGMT:
-          type: string
-          description: Date and time the message was sent in GMT
-        hasAttachment:
-          type: string
-          description: Indicates if the message has attachments (true/false)
-        isUnread:
-          type: string
-          description: Indicates if the message is unread (true/false)
-  parameters:
-    attachmentId:
-      name: attachmentId
-      in: path
-      required: true
-      description: The unique identifier for the attachment.
-      schema:
-        type: string
-    messageId:
-      name: messageId
-      in: path
-      required: true
-      description: The unique identifier for the email message.
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      description: The unique identifier for the email account.
-      schema:
-        type: string
-    folderId:
-      name: folderId
-      in: path
-      required: true
-      description: The unique identifier for the folder.
-      schema:
-        type: string
   securitySchemes:
     OAuth2:
       type: oauth2

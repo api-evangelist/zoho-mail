@@ -15,6 +15,12 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "zoho-mail-accounts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "zoho-mail-folders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "zoho-mail-messages-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "zoho-mail-organization-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

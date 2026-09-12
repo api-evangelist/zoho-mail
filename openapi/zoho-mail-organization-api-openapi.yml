@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Zoho Mail Accounts Organization API
   description: REST API for Zoho Mail providing programmatic access to email accounts, folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization settings, domains, groups, users, mail policies, and audit logs. Supports full CRUD operations across all modules with OAuth 2.0 authentication.
