@@ -1,0 +1,44 @@
+# Front Door AI Index — zoho-mail — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: zoho-mail
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.zoho.com
+  final_host: www.zoho.com
+  ownership: shared
+  owner: zoho
+  shares_host_with:
+  - zoho
+  - zoho-analytics
+  - zoho-books
+  - zoho-campaigns
+  - zoho-cliq
+  - zoho-creator
+  - zoho-crm
+  - zoho-desk
+  - zoho-forms
+  - zoho-inventory
+  - zoho-invoice
+  - zoho-meeting
+  - zoho-people
+  - zoho-projects
+  - zoho-recruit
+  - zoho-sheet
+  - zoho-sign
+  - zoho-writer
+  inherited_from: null
+  verdict: scored
+  score: null
+  host_score: 1
+  density: null
+  words: 551
+  tiers:
+    agentic: 1
+    core: 0
+    model: 0
+  ambiguous: 2
+  top_terms:
+    agent: 2
+    autonomous agent: 1

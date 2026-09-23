@@ -156,7 +156,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
 components:
+  parameters:
+    zoid:
+      name: zoid
+      in: path
+      required: true
+      description: The unique identifier for the organization.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier for the email account.
+      schema:
+        type: string
   schemas:
+    ApiStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
     Account:
       type: object
       properties:
@@ -173,37 +204,6 @@ components:
         accountName:
           type: string
           description: Name of the email account
-    ApiResponse:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/ApiStatus'
-        data:
-          description: Response payload; structure varies by endpoint
-    ApiStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP-style status code
-        description:
-          type: string
-          description: Human-readable status description
-  parameters:
-    zoid:
-      name: zoid
-      in: path
-      required: true
-      description: The unique identifier for the organization.
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      description: The unique identifier for the email account.
-      schema:
-        type: string
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -1,10 +1,7 @@
 {
   "provider": "zoho-mail",
   "sources": [
-    "zoho-mail-accounts-api-openapi.yml",
-    "zoho-mail-folders-api-openapi.yml",
-    "zoho-mail-messages-api-openapi.yml",
-    "zoho-mail-organization-api-openapi.yml"
+    "_original/openapi.json"
   ],
   "outputs": [
     "zoho-mail-accounts-api-openapi.yml",
@@ -16,11 +13,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "zoho-mail-accounts-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "zoho-mail-folders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "zoho-mail-messages-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "zoho-mail-organization-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "zoho-mail-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zoho-mail-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zoho-mail-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zoho-mail-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
