@@ -77,8 +77,6 @@ apis:
     url: https://www.zoho.com/mail/help/api/using-oauth-2.html
   - type: OpenAPISpec
     url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
-  - type: GraphQL
-    url: graphql/zoho-mail-graphql.md
 - aid: zoho-mail:zoho-mail-folders-api
   name: Zoho Mail Folders API
   description: Create and manage email folders
@@ -97,8 +95,6 @@ apis:
     url: https://www.zoho.com/mail/help/api/using-oauth-2.html
   - type: OpenAPISpec
     url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
-  - type: GraphQL
-    url: graphql/zoho-mail-graphql.md
 - aid: zoho-mail:zoho-mail-messages-api
   name: Zoho Mail Messages API
   description: Send, receive, search, and manage email messages and attachments
@@ -119,8 +115,6 @@ apis:
     url: https://www.zoho.com/mail/help/api/using-oauth-2.html
   - type: OpenAPISpec
     url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
-  - type: GraphQL
-    url: graphql/zoho-mail-graphql.md
 - aid: zoho-mail:zoho-mail-organization-api
   name: Zoho Mail Organization API
   description: Admin-level organization, domain, group, user, and policy management
@@ -139,8 +133,6 @@ apis:
     url: https://www.zoho.com/mail/help/api/using-oauth-2.html
   - type: OpenAPISpec
     url: https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html
-  - type: GraphQL
-    url: graphql/zoho-mail-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/zoho-mail-agentic-access.yml
