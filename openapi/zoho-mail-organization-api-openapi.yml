@@ -72,13 +72,6 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
 components:
   schemas:
-    ApiResponse:
-      type: object
-      properties:
-        status:
-          $ref: '#/components/schemas/ApiStatus'
-        data:
-          description: Response payload; structure varies by endpoint
     ApiStatus:
       type: object
       properties:
@@ -88,19 +81,26 @@ components:
         description:
           type: string
           description: Human-readable status description
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
   parameters:
-    accountId:
-      name: accountId
-      in: path
-      required: true
-      description: The unique identifier for the email account.
-      schema:
-        type: string
     zoid:
       name: zoid
       in: path
       required: true
       description: The unique identifier for the organization.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier for the email account.
       schema:
         type: string
   securitySchemes:

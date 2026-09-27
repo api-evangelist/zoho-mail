@@ -460,18 +460,18 @@ components:
       description: The unique identifier for the attachment.
       schema:
         type: string
-    messageId:
-      name: messageId
-      in: path
-      required: true
-      description: The unique identifier for the email message.
-      schema:
-        type: string
     folderId:
       name: folderId
       in: path
       required: true
       description: The unique identifier for the folder.
+      schema:
+        type: string
+    messageId:
+      name: messageId
+      in: path
+      required: true
+      description: The unique identifier for the email message.
       schema:
         type: string
     accountId:
@@ -499,6 +499,46 @@ components:
         labelId:
           type: string
           description: Label ID to add or remove
+    ApiStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
+    Message:
+      type: object
+      properties:
+        messageId:
+          type: string
+          description: Unique message identifier
+        subject:
+          type: string
+          description: Email subject line
+        fromAddress:
+          type: string
+          format: email
+          description: Sender email address
+        toAddress:
+          type: string
+          description: Recipient email addresses
+        ccAddress:
+          type: string
+          description: CC email addresses
+        bccAddress:
+          type: string
+          description: BCC email addresses
+        sentDateInGMT:
+          type: string
+          description: Date and time the message was sent in GMT
+        hasAttachment:
+          type: string
+          description: Indicates if the message has attachments (true/false)
+        isUnread:
+          type: string
+          description: Indicates if the message is unread (true/false)
     SendMessageRequest:
       type: object
       required:
@@ -534,15 +574,6 @@ components:
         encoding:
           type: string
           description: Character encoding for the email
-    ApiStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP-style status code
-        description:
-          type: string
-          description: Human-readable status description
     ApiResponse:
       type: object
       properties:
@@ -550,37 +581,6 @@ components:
           $ref: '#/components/schemas/ApiStatus'
         data:
           description: Response payload; structure varies by endpoint
-    Message:
-      type: object
-      properties:
-        messageId:
-          type: string
-          description: Unique message identifier
-        subject:
-          type: string
-          description: Email subject line
-        fromAddress:
-          type: string
-          format: email
-          description: Sender email address
-        toAddress:
-          type: string
-          description: Recipient email addresses
-        ccAddress:
-          type: string
-          description: CC email addresses
-        bccAddress:
-          type: string
-          description: BCC email addresses
-        sentDateInGMT:
-          type: string
-          description: Date and time the message was sent in GMT
-        hasAttachment:
-          type: string
-          description: Indicates if the message has attachments (true/false)
-        isUnread:
-          type: string
-          description: Indicates if the message is unread (true/false)
   securitySchemes:
     OAuth2:
       type: oauth2
