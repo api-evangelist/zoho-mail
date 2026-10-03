@@ -453,25 +453,11 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
 components:
   parameters:
-    attachmentId:
-      name: attachmentId
-      in: path
-      required: true
-      description: The unique identifier for the attachment.
-      schema:
-        type: string
     folderId:
       name: folderId
       in: path
       required: true
       description: The unique identifier for the folder.
-      schema:
-        type: string
-    messageId:
-      name: messageId
-      in: path
-      required: true
-      description: The unique identifier for the email message.
       schema:
         type: string
     accountId:
@@ -481,33 +467,28 @@ components:
       description: The unique identifier for the email account.
       schema:
         type: string
+    messageId:
+      name: messageId
+      in: path
+      required: true
+      description: The unique identifier for the email message.
+      schema:
+        type: string
+    attachmentId:
+      name: attachmentId
+      in: path
+      required: true
+      description: The unique identifier for the attachment.
+      schema:
+        type: string
   schemas:
-    UpdateMessageRequest:
+    ApiResponse:
       type: object
       properties:
-        mode:
-          type: string
-          description: 'Action to perform: markAsRead, markAsUnread, moveMessage, flagMessage, addLabel, removeLabel, markAsSpam, markAsNotSpam, archiveMessage, unarchiveMessage'
-        messageId:
-          type: array
-          items:
-            type: string
-          description: Array of message IDs to update
-        folderId:
-          type: string
-          description: Target folder ID (used with moveMessage)
-        labelId:
-          type: string
-          description: Label ID to add or remove
-    ApiStatus:
-      type: object
-      properties:
-        code:
-          type: integer
-          description: HTTP-style status code
-        description:
-          type: string
-          description: Human-readable status description
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
     Message:
       type: object
       properties:
@@ -574,13 +555,32 @@ components:
         encoding:
           type: string
           description: Character encoding for the email
-    ApiResponse:
+    UpdateMessageRequest:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/ApiStatus'
-        data:
-          description: Response payload; structure varies by endpoint
+        mode:
+          type: string
+          description: 'Action to perform: markAsRead, markAsUnread, moveMessage, flagMessage, addLabel, removeLabel, markAsSpam, markAsNotSpam, archiveMessage, unarchiveMessage'
+        messageId:
+          type: array
+          items:
+            type: string
+          description: Array of message IDs to update
+        folderId:
+          type: string
+          description: Target folder ID (used with moveMessage)
+        labelId:
+          type: string
+          description: Label ID to add or remove
+    ApiStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
   securitySchemes:
     OAuth2:
       type: oauth2

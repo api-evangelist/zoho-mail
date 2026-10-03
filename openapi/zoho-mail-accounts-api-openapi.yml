@@ -157,15 +157,13 @@ paths:
                 $ref: '#/components/schemas/ApiResponse'
 components:
   schemas:
-    ApiStatus:
+    ApiResponse:
       type: object
       properties:
-        code:
-          type: integer
-          description: HTTP-style status code
-        description:
-          type: string
-          description: Human-readable status description
+        status:
+          $ref: '#/components/schemas/ApiStatus'
+        data:
+          description: Response payload; structure varies by endpoint
     Account:
       type: object
       properties:
@@ -182,26 +180,28 @@ components:
         accountName:
           type: string
           description: Name of the email account
-    ApiResponse:
+    ApiStatus:
       type: object
       properties:
-        status:
-          $ref: '#/components/schemas/ApiStatus'
-        data:
-          description: Response payload; structure varies by endpoint
+        code:
+          type: integer
+          description: HTTP-style status code
+        description:
+          type: string
+          description: Human-readable status description
   parameters:
-    zoid:
-      name: zoid
-      in: path
-      required: true
-      description: The unique identifier for the organization.
-      schema:
-        type: string
     accountId:
       name: accountId
       in: path
       required: true
       description: The unique identifier for the email account.
+      schema:
+        type: string
+    zoid:
+      name: zoid
+      in: path
+      required: true
+      description: The unique identifier for the organization.
       schema:
         type: string
   securitySchemes:
