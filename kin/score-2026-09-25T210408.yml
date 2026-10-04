@@ -1,22 +1,20 @@
-# Kin Score artifact — zoho-mail — 2026-08-27T123021
+# Kin Score artifact — zoho-mail — 2026-09-25T210408
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: zoho-mail
-  schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T123021
-  composite: 42.0
-  band: developing
+  schema_version: 0.23.0
+  scored_at: '2026-09-25'
+  run_ts: 2026-09-25T210408
+  composite: 39.0
+  band: thin
   facets:
-    discoverability: 74.1
-    contract_quality: 58.9
-    governance: 0.0
+    discoverability: 66.1
+    contract_quality: 48.2
+    contract_governance: 0.0
     operational_transparency: 21.1
     developer_ergonomics: 35.7
-    commercial_clarity: 50.0
-    contract_governance: 0.0
-    access_clarity: 50.0
+    access_clarity: 46.8
   agent_readiness:
     score: 24.8
     band: agent-aware
@@ -40,6 +38,12 @@ kin_score:
       protected_resource_metadata: false
       dynamic_client_registration: false
       agentic_commerce: false
+  regulatory:
+    applies: true
+    regime: Horizontal (data, software, accessibility, platform)
+    regime_id: horizontal
+    score: 27.5
+    matched_via: fallback
   provenance:
     agentic_access: derived
     contracts:
