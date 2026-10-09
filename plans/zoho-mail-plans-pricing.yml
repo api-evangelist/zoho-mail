@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Zoho Mail Plans & Pricing
 description: Pricing plans for Zoho Mail email and collaboration platform
 url: https://www.zoho.com/mail/zohomail-pricing.html
@@ -121,3 +125,60 @@ addons:
     currency: USD
     unit: tiered pricing
     url: https://www.zoho.com/workplace/pricing.html
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units:
+  - negotiated
+  plans:
+  - name: Mail Free
+    access: other
+    model: free
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Mail Lite
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Mail Premium
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Workplace Standard
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Workplace Professional
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Workplace Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - term

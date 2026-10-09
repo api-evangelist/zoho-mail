@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: Zoho Mail API Rate Limits
 description: Rate limits and sending restrictions for Zoho Mail REST API and email service
 url: https://www.zoho.com/mail/help/adminconsole/rates-and-limits.html
