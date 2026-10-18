@@ -67,3 +67,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: zoho-mail-google-workspace-own
+  label: Google Workspace (own)
+  partner: google-workspace
+  partner_name: Google Workspace (own)
+  category: Google Workspace app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://workspace.google.com/marketplace/app/zoho_craft_send_and_track_with_mail_merg/1002365760077
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
