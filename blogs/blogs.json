@@ -5,12 +5,19 @@
       "source": "https://blog.zoho.com/mail",
       "feed_url": "https://blog.zoho.com/mail/feed/",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "discovered"
+    },
+    {
+      "source": "https://blog.zoho.com/mail/feed/",
+      "feed_url": "https://blog.zoho.com/mail/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     }
   ],
-  "fetched": "2026-10-10T13:15:00Z",
-  "post_count": 12,
+  "fetched": "2026-10-17T14:53:57Z",
+  "post_count": 20,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
