@@ -1,4 +1,4 @@
-# Zoho Mail (zoho-mail)
+# Zoho Mail
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,67 +66,135 @@
 
 Zoho Mail is an ad-free, privacy-first email and collaboration platform offering a comprehensive REST API for managing email accounts, folders, messages, contacts, calendars, and organizational email administration. The API supports 15 modules including Organization, Domains, Groups, Users, Mail Policy, Accounts, Folders, Labels, Email Messages, Signatures, Threads, Tasks, Bookmarks, Notes, and Logs. Authentication uses OAuth 2.0 and responses are returned in JSON format with region-specific base URLs for US, Europe, India, Australia, Japan, Canada, UAE, Saudi Arabia, and China deployments.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/zoho-mail/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/zoho-mail/refs/heads/main/apis.yml)
+**Areas:** Email · Mail · Collaboration · Messaging · Calendar · Contacts · Organization Management · Software-as-a-Service
 
-## Tags
+## Zoho Mail on APIs.io
 
-- Email
-- Mail
-- Collaboration
-- Messaging
-- Calendar
-- Contacts
-- Organization Management
-- SaaS
+Everything profiled for Zoho Mail is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/zoho-mail/](https://apis.io/providers/zoho-mail/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+- [Zoho Mail Accounts API](https://apis.io/apis/zoho-mail/zoho-mail-accounts-api/) — Manage email accounts, vacation replies, forwarding, and account settings
+- [Zoho Mail Folders API](https://apis.io/apis/zoho-mail/zoho-mail-folders-api/) — Create and manage email folders
+- [Zoho Mail Messages API](https://apis.io/apis/zoho-mail/zoho-mail-messages-api/) — Send, receive, search, and manage email messages and attachments
+- [Zoho Mail Organization API](https://apis.io/apis/zoho-mail/zoho-mail-organization-api/) — Admin-level organization, domain, group, user, and policy management
 
-## APIs
+### Published properties
 
-### Zoho Mail API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API for Zoho Mail providing programmatic access to email accounts, folders, messages, threads, labels, signatures, tasks, bookmarks, notes, organization settings, domains, groups, users, mail policies, and audit logs. Supports full CRUD operations across all modules with OAuth 2.0 authentication.
+#### GraphQL (1)
 
-- **Human URL:** [https://www.zoho.com/mail/help/api/overview.html](https://www.zoho.com/mail/help/api/overview.html)
-- **Base URL:** `https://mail.zoho.com/api`
+GraphQL schemas.
 
-#### Tags
+- [Moved to /providers/zoho-mail/](https://apis.io/graphqls/zoho-mail/zoho-mail-graphql/)
 
-- Email
-- Mail
-- REST API
-- Organization
-- Messaging
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://www.zoho.com/mail/help/api/overview.html)
-- [Getting Started](https://www.zoho.com/mail/help/api/getting-started-with-api.html)
-- [Authentication](https://www.zoho.com/mail/help/api/using-oauth-2.html)
-- [Open A P I Spec](https://prezohoweb.zoho.com/mail/help/api/openapi-specification.html)
-- [OpenAPI](openapi/openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Graph Q L](graphql/zoho-mail-graphql.md)
+- [Zoho Mail Agentic Access](https://apis.io/agentic-access/zoho-mail/zoho-mail-agentic-access/)
 
-## Common Properties
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Zoho Mail Accounts API](https://apis.io/collections/zoho-mail/open-zoho-mail-accounts-api/)
+- [Zoho Mail Accounts Folders API](https://apis.io/collections/zoho-mail/open-zoho-mail-folders-api/)
+- [Zoho Mail Accounts Messages API](https://apis.io/collections/zoho-mail/open-zoho-mail-messages-api/)
+- [Zoho Mail Accounts Organization API](https://apis.io/collections/zoho-mail/open-zoho-mail-organization-api/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Zoho Mail Authentication](https://apis.io/security/zoho-mail/zoho-mail-authentication/)
+- [Zoho Mail Domain Security](https://apis.io/security/zoho-mail/zoho-mail-domain-security/)
+- [Zoho Mail Vulnerability Disclosure](https://apis.io/security/zoho-mail/zoho-mail-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Zoho Mail Scopes](https://apis.io/scopes/zoho-mail/zoho-mail-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Zoho Mail Plans Pricing](https://apis.io/plans/zoho-mail/zoho-mail-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Zoho Mail Rate Limits](https://apis.io/rate-limits/zoho-mail/zoho-mail-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Zoho Mail Finops](https://apis.io/finops/zoho-mail/zoho-mail-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.zoho.com/mail/)
 - [Documentation](https://www.zoho.com/mail/help/api/overview.html)
-- [Git Hub Org](https://github.com/zoho)
-- [LinkedIn](https://in.linkedin.com/company/zoho-mail)
-- [Blog](https://blog.zoho.com/mail)
 - [Pricing](https://www.zoho.com/mail/zohomail-pricing.html)
-- [Status Page](https://status.zoho.com)
-- [X (Twitter)](https://x.com/zohomail)
-- [Plans](plans/zoho-mail-plans-pricing.yml)
-- [Rate Limits](rate-limits/zoho-mail-rate-limits.yml)
-- [Fin Ops](finops/zoho-mail-finops.yml)
-- [Blog Posts](blogs/blogs.json)
-- [J S O N Ld](json-ld/zoho-mail.json) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Blog](https://blog.zoho.com/mail)
+- [Status](https://status.zoho.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.2 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 18.4 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 27.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/zoho-mail/](https://apis.io/providers/zoho-mail/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Zoho Mail: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/zoho-mail/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
